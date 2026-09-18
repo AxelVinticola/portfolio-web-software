@@ -11,10 +11,10 @@ const es = {
 
       available: "Disponible para trabajar",
 
-      subtitle: "Desarrollador Full Stack",
+      subtitle: "Desarrollador Web & Sostware",
 
       description:
-        "Desarrollo aplicaciones web y móviles con Python, Django, React y React Native, creando soluciones modernas, escalables y orientadas a resolver problemas reales.",
+        "Diseño y desarrollo sitios web, landing pages y software a medida. Transformo ideas en plataformas modernas, veloces y escalables, pensadas para impulsar tu negocio y automatizar tus procesos.",
 
       projects: "Ver proyectos",
 

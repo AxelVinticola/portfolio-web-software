@@ -13,7 +13,7 @@ const en = {
     subtitle: "Full Stack Developer",
 
     description:
-      "I develop web and mobile applications using Python, Django, React, and React Native, creating modern, scalable solutions focused on solving real-world problems.",
+      "Custom web design, landing pages, and software development. Transforming ideas into modern, high-performance, and scalable platforms designed to grow your business and streamline your operations.",
 
     projects: "View projects",
 

@@ -15,7 +15,7 @@ function Hero({ t }) {
         </span>
 
         <h1 className="hero__title">
-          Axel Vintícola
+          Axel NaVi
         </h1>
 
         <h2 className="hero__subtitle">
