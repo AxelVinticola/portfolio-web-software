@@ -9,16 +9,40 @@ const es = {
   
   hero: {
 
-      available: "Disponible para trabajar",
+      available: "Disponible para nuevos proyectos",
 
-      subtitle: "Desarrollador Web & Sostware",
+      brandTagline: "Estudio de desarrollo web y software",
+
+      roleLead: "Construyo",
+      roleTrail: "que funcionan.",
+
+      role1: "Sitios Web",
+      role2: "Software a Medida",
+      role3: "Sistemas ERP",
+      role4: "Apps Móviles",
+
+      subtitle: "Desarrollador Full Stack",
 
       description:
-        "Diseño y desarrollo sitios web, landing pages y software a medida. Transformo ideas en plataformas modernas, veloces y escalables, pensadas para impulsar tu negocio y automatizar tus procesos.",
+        "Ayudo a empresas y emprendedores a tener presencia digital profesional y herramientas de gestión que resuelven problemas reales — desde la idea hasta el producto funcionando.",
+
+      ctaPrimary: "Empezar mi proyecto",
+      ctaSecondary: "Ver trabajos realizados",
 
       projects: "Ver proyectos",
 
       downloadCV: "Descargar CV",
+
+      stat1Value: "2+",
+      stat1Label: "Proyectos entregados",
+
+      stat2Value: "6+",
+      stat2Label: "Tecnologías dominadas",
+
+      stat3Value: "100%",
+      stat3Label: "Enfoque en resultados",
+
+      scrollCue: "Descubrí más",
 
   },
 

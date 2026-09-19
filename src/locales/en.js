@@ -8,16 +8,40 @@ const en = {
   },
  hero: {
 
-    available: "Available for work",
+    available: "Available for new projects",
+
+    brandTagline: "Web & software development studio",
+
+    roleLead: "I build",
+    roleTrail: "that work.",
+
+    role1: "Websites",
+    role2: "Custom Software",
+    role3: "ERP Systems",
+    role4: "Mobile Apps",
 
     subtitle: "Full Stack Developer",
 
     description:
-      "Custom web design, landing pages, and software development. Transforming ideas into modern, high-performance, and scalable platforms designed to grow your business and streamline your operations.",
+      "I help businesses and entrepreneurs get a professional digital presence and management tools that solve real problems — from idea to a product running in production.",
+
+    ctaPrimary: "Start my project",
+    ctaSecondary: "See my work",
 
     projects: "View projects",
 
     downloadCV: "Download CV",
+
+    stat1Value: "2+",
+    stat1Label: "Projects delivered",
+
+    stat2Value: "6+",
+    stat2Label: "Technologies mastered",
+
+    stat3Value: "100%",
+    stat3Label: "Results-driven",
+
+    scrollCue: "Discover more",
 
   },
 
