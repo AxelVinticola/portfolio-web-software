@@ -7,18 +7,30 @@
   --hero-white: #FFFFFF;
   --hero-line: rgba(16, 35, 63, 0.14);
 
+  position: sticky;
+  top: 0;
+
   isolation:isolate;
-  min-height:100vh;
+  height:100vh;
+  overflow:hidden;
+
+  z-index: 1;
+
+  background: var(--hero-cream);
+  color: var(--hero-navy);
+}
+
+.hero__inner{
+  height:100%;
+
   display:flex;
   justify-content:space-between;
   align-items:center;
   gap:70px;
   padding:0 8%;
-  position:relative;
-  overflow:hidden;
 
-  background: var(--hero-cream);
-  color: var(--hero-navy);
+  transition: transform .1s linear, filter .1s linear, opacity .1s linear;
+  will-change: transform, filter, opacity;
 }
 
 /* Degradé sutil en una esquina, no en todo el fondo */
@@ -476,12 +488,28 @@
 
 @media (max-width:991px){
 
+  /* El efecto sticky (Servicios tapando al Hero) se desactiva en mobile:
+     con contenido apilado verticalmente + altura fija, se recortaría.
+     Además evita el scroll-jacking pesado en equipos con menos potencia. */
+
   .hero{
+    position:relative;
+    height:auto;
+    overflow:visible;
+  }
+
+  .hero__inner{
+    height:auto;
+
     flex-direction:column-reverse;
     justify-content:center;
     text-align:center;
     padding:120px 7% 80px;
     gap:50px;
+
+    transform:none !important;
+    filter:none !important;
+    opacity:1 !important;
   }
 
   .hero__divider{

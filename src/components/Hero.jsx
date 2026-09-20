@@ -8,6 +8,49 @@ function Hero({ t }) {
 
   const logoRef = useRef(null);
   const constellationRef = useRef(null);
+  const innerRef = useRef(null);
+
+  // A medida que "Servicios" tapa al Hero (scroll sticky), el contenido
+  // se achica y oscurece levemente — sensación de que se hunde detrás
+  useEffect(() => {
+    let aboutOffset = window.innerHeight;
+
+    const updateOffset = () => {
+      const aboutEl = document.getElementById("about");
+      aboutOffset = aboutEl ? aboutEl.offsetTop : window.innerHeight;
+    };
+
+    updateOffset();
+    window.addEventListener("resize", updateOffset);
+
+    let ticking = false;
+
+    const handleScroll = () => {
+      if (ticking) return;
+      ticking = true;
+
+      window.requestAnimationFrame(() => {
+        const progress = Math.min(Math.max(window.scrollY / aboutOffset, 0), 1);
+
+        if (innerRef.current) {
+          innerRef.current.style.transform =
+            `scale(${1 - progress * 0.06}) translateY(${-progress * 26}px)`;
+          innerRef.current.style.filter = `brightness(${1 - progress * 0.2})`;
+          innerRef.current.style.opacity = `${1 - progress * 0.35}`;
+        }
+
+        ticking = false;
+      });
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    handleScroll();
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener("resize", updateOffset);
+    };
+  }, []);
 
   // Rotación automática de roles
   useEffect(() => {
@@ -77,108 +120,112 @@ function Hero({ t }) {
 
       <div className="hero__corner-glow" />
 
-      <div className="hero__content">
+      <div className="hero__inner" ref={innerRef}>
 
-        <div className="hero__eyebrow">
-          <span className="hero__eyebrow-brand">Axel NaVi</span>
-          <span className="hero__eyebrow-dot" />
-          <span className="hero__eyebrow-tagline">{t.hero.brandTagline}</span>
-        </div>
+        <div className="hero__content">
 
-        <div className="hero__available">
-          <span className="hero__available-dot" />
-          {t.hero.available}
-        </div>
-
-        <h1 className="hero__title">
-          {t.hero.roleLead}{" "}
-          <span className="hero__role-wrapper">
-            <span key={roleIndex} className="hero__role">
-              {roles[roleIndex]}
-            </span>
-          </span>{" "}
-          {t.hero.roleTrail}
-        </h1>
-
-        <p className="hero__meta">
-          Por Axel Vintícola — {t.hero.subtitle}
-        </p>
-
-        <p className="hero__description">
-          {t.hero.description}
-        </p>
-
-        <div className="hero__buttons">
-
-          <a href="#contact" className="hero__btn hero__btn--primary">
-            {t.hero.ctaPrimary}
-          </a>
-
-          <a href="#projects" className="hero__btn hero__btn--secondary">
-            {t.hero.ctaSecondary}
-          </a>
-
-          <a
-            href="/CV_Vinticola_Axel_2026.pdf"
-            download="CV_Vinticola_Axel_2026.pdf"
-            className="hero__cv-link"
-          >
-            {t.hero.downloadCV}
-          </a>
-
-        </div>
-
-        <div className="hero__stats">
-
-          {stats.map((stat, index) => (
-            <div className="hero__stat" key={index}>
-              <strong>{stat.value}</strong>
-              <span>{stat.label}</span>
-            </div>
-          ))}
-
-        </div>
-
-      </div>
-
-      <div className="hero__divider" aria-hidden="true" />
-
-      <div
-        className="hero__constellation"
-        ref={constellationRef}
-        onMouseMove={handleConstellationMove}
-        onMouseLeave={handleConstellationLeave}
-      >
-
-        <div className="hero__logo-glow" />
-        <div className="hero__logo-shadow" />
-
-        <div className="hero__logo-wrap">
-          <div
-            className="hero__logo"
-            ref={logoRef}
-            onMouseMove={handleLogoMove}
-            onMouseLeave={handleLogoLeave}
-          >
-            <img src="/logoAV.png" alt="Axel NaVi" />
+          <div className="hero__eyebrow">
+            <span className="hero__eyebrow-brand">Axel NaVi</span>
+            <span className="hero__eyebrow-dot" />
+            <span className="hero__eyebrow-tagline">{t.hero.brandTagline}</span>
           </div>
+
+          <div className="hero__available">
+            <span className="hero__available-dot" />
+            {t.hero.available}
+          </div>
+
+          <h1 className="hero__title">
+            {t.hero.roleLead}{" "}
+            <span className="hero__role-wrapper">
+              <span key={roleIndex} className="hero__role">
+                {roles[roleIndex]}
+              </span>
+            </span>{" "}
+            {t.hero.roleTrail}
+          </h1>
+
+          <p className="hero__meta">
+            Por Axel Vintícola — {t.hero.subtitle}
+          </p>
+
+          <p className="hero__description">
+            {t.hero.description}
+          </p>
+
+          <div className="hero__buttons">
+
+            <a href="#contact" className="hero__btn hero__btn--primary">
+              {t.hero.ctaPrimary}
+            </a>
+
+            <a href="#projects" className="hero__btn hero__btn--secondary">
+              {t.hero.ctaSecondary}
+            </a>
+
+            <a
+              href="/CV_Vinticola_Axel_2026.pdf"
+              download="CV_Vinticola_Axel_2026.pdf"
+              className="hero__cv-link"
+            >
+              {t.hero.downloadCV}
+            </a>
+
+          </div>
+
+          <div className="hero__stats">
+
+            {stats.map((stat, index) => (
+              <div className="hero__stat" key={index}>
+                <strong>{stat.value}</strong>
+                <span>{stat.label}</span>
+              </div>
+            ))}
+
+          </div>
+
         </div>
 
-        <span className="hero__chip hero__chip--1" data-depth="0.05">
-          {t.hero.role1}
-        </span>
+        <div className="hero__divider" aria-hidden="true" />
 
-        <span className="hero__chip hero__chip--2" data-depth="-0.07">
-          {t.hero.role2}
-        </span>
+        <div
+          className="hero__constellation"
+          ref={constellationRef}
+          onMouseMove={handleConstellationMove}
+          onMouseLeave={handleConstellationLeave}
+        >
 
-        <span className="hero__chip hero__chip--3" data-depth="0.06">
-          {t.hero.role3}
-        </span>
+          <div className="hero__logo-glow" />
+          <div className="hero__logo-shadow" />
 
-        <span className="hero__chip hero__chip--4" data-depth="-0.04">
-          {t.hero.role4}
-        </span>
+          <div className="hero__logo-wrap">
+            <div
+              className="hero__logo"
+              ref={logoRef}
+              onMouseMove={handleLogoMove}
+              onMouseLeave={handleLogoLeave}
+            >
+              <img src="/logoAV.png" alt="Axel NaVi" />
+            </div>
+          </div>
+
+          <span className="hero__chip hero__chip--1" data-depth="0.05">
+            {t.hero.role1}
+          </span>
+
+          <span className="hero__chip hero__chip--2" data-depth="-0.07">
+            {t.hero.role2}
+          </span>
+
+          <span className="hero__chip hero__chip--3" data-depth="0.06">
+            {t.hero.role3}
+          </span>
+
+          <span className="hero__chip hero__chip--4" data-depth="-0.04">
+            {t.hero.role4}
+          </span>
+
+        </div>
 
       </div>
 

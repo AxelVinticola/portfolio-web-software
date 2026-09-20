@@ -46,32 +46,28 @@ const en = {
   },
 
   about: {
-    title: "About Me",
-    subtitle: "Learn more about my professional profile.",
+    title: "This is what I build.",
+    subtitle: "Services built to take your project from idea to a working product.",
 
-    paragraph1:
-      "I am a Higher Technician in Computer Systems Analysis, with training in Full Stack development and a strong focus on web and mobile application development.",
+    personalHook:
+      "I used to investigate crime scenes. Now I investigate why your site won't load fast.",
 
-    paragraph2:
-      "During my training, I developed complete solutions using Python, Django, React, React Native, MySQL and Firebase, participating in all stages of development: analysis, design, implementation, databases and deployment.",
+    service1Desc:
+      "Fast, responsive landing pages and corporate sites designed to turn visits into clients.",
 
-    paragraph3:
-      "Additionally, I hold a Bachelor's Degree in Criminalistics, which complements my profile with skills in analysis, research, technical report writing, problem solving and attention to detail.",
+    service2Desc:
+      "Custom web systems for processes that off-the-shelf tools can't solve.",
 
-    paragraph4:
-      "I am interested in participating in projects focused on developing technological solutions, continuing to expand my knowledge and taking on new challenges within the IT sector.",
+    service3Desc:
+      "Inventory, sales, shifts, and staff management centralized in one system.",
 
-    mainStack: "Main Stack",
-    mainStackTech: "JavaScript · Python · Django · React",
+    service4Desc:
+      "Cross-platform apps built with React Native, connected to your backend and ready to ship.",
 
-    development: "Development",
-    developmentTech: "Web · Mobile · Full Stack",
+    closingTitle: "Ready to start your project?",
+    closingText: "Tell me what you need and let's build it together, from idea to a working product.",
 
-    databases: "Databases",
-    databasesTech: "MySQL · Firebase",
-
-    objective: "Goal",
-    objectiveTech: "Full Stack Developer",
+    viewExample: "View example",
   },
 
   skills: {

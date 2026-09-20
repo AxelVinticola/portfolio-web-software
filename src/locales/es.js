@@ -47,32 +47,28 @@ const es = {
   },
 
    about: {
-    title: "Sobre mí",
-    subtitle: "Conocé un poco más sobre mi perfil profesional.",
+    title: "Esto es lo que construyo.",
+    subtitle: "Servicios pensados para llevar tu proyecto de la idea al producto funcionando.",
 
-    paragraph1:
-      "Soy Técnico Superior en Análisis de Sistemas Informáticos, con formación en desarrollo Full Stack y una fuerte orientación al desarrollo de aplicaciones web y móviles.",
+    personalHook:
+      "Antes investigaba escenas del crimen. Hoy investigo por qué tu sitio no carga rápido.",
 
-    paragraph2:
-      "Durante mi formación desarrollé soluciones completas utilizando Python, Django, React, React Native, MySQL y Firebase, participando en todas las etapas del desarrollo: análisis, diseño, implementación, bases de datos y despliegue.",
+    service1Desc:
+      "Landing pages y sitios corporativos rápidos, responsivos y pensados para convertir visitas en clientes.",
 
-    paragraph3:
-      "Además, poseo una Licenciatura en Criminalística, que complementa mi perfil con capacidades de análisis, investigación, elaboración de informes técnicos, resolución de problemas y atención al detalle.",
+    service2Desc:
+      "Sistemas web hechos a medida para procesos que las herramientas genéricas no resuelven.",
 
-    paragraph4:
-      "Me interesa participar en proyectos orientados al desarrollo de soluciones tecnológicas, continuar ampliando mis conocimientos y afrontar nuevos desafíos dentro del sector IT.",
+    service3Desc:
+      "Gestión de inventario, ventas, turnos y empleados centralizada en un solo sistema.",
 
-    mainStack: "Stack Principal",
-    mainStackTech: "JavaScript · Python · Django · React",
+    service4Desc:
+      "Apps multiplataforma con React Native, conectadas a tu backend y listas para publicar.",
 
-    development: "Desarrollo",
-    developmentTech: "Web · Mobile · Full Stack",
+    closingTitle: "¿Empezamos tu proyecto?",
+    closingText: "Contame qué necesitás y lo armamos juntos, de la idea al producto funcionando.",
 
-    databases: "Bases de Datos",
-    databasesTech: "MySQL · Firebase",
-
-    objective: "Objetivo",
-    objectiveTech: "Desarrollador Full Stack",
+    viewExample: "Ver ejemplo",
   },
 
   skills: {
