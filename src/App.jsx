@@ -38,7 +38,7 @@ function App() {
 
       <Contact t={t}/>
 
-      <Footer/>
+      <Footer t={t}/>
 
     </>
 

@@ -1,6 +1,6 @@
 import "../styles/navbar.css";
-import { FaGithub, FaLinkedin } from "react-icons/fa";
-import { HiOutlineDocumentArrowDown, HiOutlineBars3, HiOutlineXMark } from "react-icons/hi2";
+import { FaGithub } from "react-icons/fa";
+import { HiOutlineBars3, HiOutlineXMark } from "react-icons/hi2";
 import { useEffect, useRef, useState } from "react";
 
 const SECTIONS = ["about", "skills", "projects", "education", "contact"];
@@ -53,7 +53,7 @@ function Navbar({ language, setLanguage, t }) {
     return () => observer.disconnect();
   }, []);
 
-  // Mueve la píldora indicadora debajo del link activo
+  // Mueve la línea indicadora debajo del link activo
   useEffect(() => {
     const activeEl = linkRefs.current[activeSection];
 
@@ -89,13 +89,12 @@ function Navbar({ language, setLanguage, t }) {
 
       <nav className={scrolled ? "navbar navbar--scrolled" : "navbar"}>
 
-        {/* LOGO */}
+        {/* LOGO + WORDMARK */}
 
-        <div className="navbar__logo">
-          <a href="#hero" onClick={closeMenu}>
-            <img src="/logoAV.png" alt="Axel Vintícola" />
-          </a>
-        </div>
+        <a href="#hero" className="navbar__logo" onClick={closeMenu}>
+          <img src="/logoAV.png" alt="Axel NaVi" />
+          <span className="navbar__wordmark">Axel NaVi</span>
+        </a>
 
         {/* MENÚ */}
 
@@ -131,9 +130,19 @@ function Navbar({ language, setLanguage, t }) {
 
         </ul>
 
-        {/* ICONOS */}
+        {/* ACCIONES */}
 
         <div className="navbar__actions">
+
+          <a
+            href="https://github.com/AxelVinticola"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="GitHub"
+            className="navbar__icon-link"
+          >
+            <FaGithub />
+          </a>
 
           <button
             id="lang-toggle"
@@ -143,30 +152,8 @@ function Navbar({ language, setLanguage, t }) {
             {language === "es" ? "🇺🇸 EN" : "🇪🇸 ES"}
           </button>
 
-          <a
-            href="https://github.com/AxelVinticola"
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="GitHub"
-          >
-            <FaGithub />
-          </a>
-
-          <a
-            href="https://linkedin.com/in/axel-vintícola-2b7245208"
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="LinkedIn"
-          >
-            <FaLinkedin />
-          </a>
-
-          <a
-            href="/CV_Vinticola_Axel_2026.pdf"
-            download="CV_Vinticola_Axel_2026.pdf"
-            aria-label="Descargar CV"
-          >
-            <HiOutlineDocumentArrowDown />
+          <a href="#contact" className="navbar__cta" onClick={closeMenu}>
+            {t.hero.ctaPrimary}
           </a>
 
         </div>
