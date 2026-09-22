@@ -9,6 +9,7 @@ function Hero({ t }) {
   const logoRef = useRef(null);
   const constellationRef = useRef(null);
   const innerRef = useRef(null);
+  const sectionRef = useRef(null);
 
   // A medida que "Servicios" tapa al Hero (scroll sticky), el contenido
   // se achica y oscurece levemente — sensación de que se hunde detrás
@@ -37,6 +38,16 @@ function Hero({ t }) {
             `scale(${1 - progress * 0.06}) translateY(${-progress * 26}px)`;
           innerRef.current.style.filter = `brightness(${1 - progress * 0.2})`;
           innerRef.current.style.opacity = `${1 - progress * 0.35}`;
+        }
+
+        // Al ser "sticky", el Hero no tiene un punto de liberación propio:
+        // sin esto, quedaría técnicamente "pegado" para siempre y se
+        // filtraría por encima de las secciones que vengan después de
+        // Servicios (como Skills), aunque ya esté tapado. Apenas Servicios
+        // cubre la pantalla entera (progress llega a 1), lo ocultamos del
+        // todo — en ese punto ya es invisible de todas formas.
+        if (sectionRef.current) {
+          sectionRef.current.style.visibility = progress >= 1 ? "hidden" : "visible";
         }
 
         ticking = false;
@@ -116,7 +127,7 @@ function Hero({ t }) {
   ];
 
   return (
-    <section id="hero" className="hero">
+    <section id="hero" className="hero" ref={sectionRef}>
 
       <div className="hero__corner-glow" />
 

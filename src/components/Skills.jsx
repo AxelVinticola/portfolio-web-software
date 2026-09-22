@@ -11,79 +11,96 @@ import {
   FaHtml5,
   FaCss3Alt,
   FaCode,
-  FaRocket, 
+  FaRocket,
 } from "react-icons/fa";
 
 import {
   SiJavascript,
+  SiTypescript,
   SiDjango,
   SiMysql,
   SiFirebase,
+  SiSupabase,
   SiBootstrap,
-  SiTrello, SiFigma, SiJquery , SiDocker, SiAngular, 
+  SiTrello,
+  SiFigma,
+  SiJquery,
+  SiDocker,
+  SiAngular,
 } from "react-icons/si";
-{/*SiSupaBase,*/}
+
+// Una tarjeta chica: ícono arriba, nombre abajo
+function TechChip({ icon, name }) {
+  return (
+    <div className="tech-chip">
+      <span className="tech-chip__icon">{icon}</span>
+      <span className="tech-chip__name">{name}</span>
+    </div>
+  );
+}
+
+// Una cinta infinita: el array se duplica para que el loop sea perfecto,
+// y se pausa entera al pasar el cursor sobre cualquiera de sus tecnologías
+function MarqueeRow({ items, reverse }) {
+  const doubled = [...items, ...items];
+
+  return (
+    <div className="tech-marquee">
+      <div
+        className={`tech-marquee__track ${reverse ? "tech-marquee__track--reverse" : ""}`}
+      >
+        {doubled.map((item, index) => (
+          <TechChip key={index} icon={item.icon} name={item.name} />
+        ))}
+      </div>
+    </div>
+  );
+}
+
 function Skills({ t }) {
+
+  const allTech = [
+    { name: "React", icon: <FaReact /> },
+    { name: "Python", icon: <FaPython /> },
+    { name: "JavaScript", icon: <SiJavascript /> },
+    { name: "Django", icon: <SiDjango /> },
+    { name: "TypeScript", icon: <SiTypescript /> },
+    { name: "Java", icon: <FaJava /> },
+    { name: "HTML", icon: <FaHtml5 /> },
+    { name: "PHP", icon: <FaPhp /> },
+    { name: "CSS", icon: <FaCss3Alt /> },
+    { name: "C#", icon: null },
+    { name: "Bootstrap", icon: <SiBootstrap /> },
+    { name: "MySQL", icon: <SiMysql /> },
+    { name: "jQuery", icon: <SiJquery /> },
+    { name: "Firebase", icon: <SiFirebase /> },
+    { name: "Angular", icon: <SiAngular /> },
+    { name: "Supabase", icon: <SiSupabase /> },
+    { name: "React Native", icon: <FaReact /> },
+    { name: "SQL", icon: <FaDatabase /> },
+    { name: "Expo", icon: <FaRocket /> },
+    { name: "Git", icon: <FaGitAlt /> },
+    { name: "GitHub", icon: <FaGithub /> },
+    { name: "VS Code", icon: <FaCode /> },
+    { name: "Trello", icon: <SiTrello /> },
+    { name: "Figma", icon: <SiFigma /> },
+    { name: "Docker", icon: <SiDocker /> },
+  ];
+
+  const rowLeft = allTech.filter((_, index) => index % 2 === 0);
+  const rowRight = allTech.filter((_, index) => index % 2 === 1);
+
   return (
     <section id="skills" className="skills">
 
-      <div className="section-title">
+      <div className="skills__header">
         <h2>{t.skills.title}</h2>
-        <p>
-          {t.skills.subtitle}
-        </p>
+        <p>{t.skills.subtitle}</p>
       </div>
 
-      <div className="skills__grid">
-
-        <div className="skill-card">
-          <h3>{t.skills.frontend}</h3>
-
-          <span><FaReact /> React</span>
-          <span><SiJavascript /> JavaScript</span>
-          <span><FaHtml5 /> HTML</span>
-          <span><FaCss3Alt /> CSS</span>
-          <span><SiBootstrap /> Bootstrap</span>
-          <span><SiJquery /> jQuery</span>
-          <span><SiAngular/> Angular</span>
-          
-          
-        </div>
-
-        <div className="skill-card">
-          <h3>{t.skills.backend}</h3>
-
-          <span><FaPython /> Python</span>
-          <span><SiDjango /> Django</span>
-          <span><FaJava /> Java</span>
-          <span><FaPhp /> PHP</span>
-          <span>C#</span>
-        </div>
-
-        <div className="skill-card">
-          <h3>{t.skills.databases}</h3>
-
-          <span><SiMysql /> MySQL</span>
-          <span><SiFirebase /> Firebase</span>
-          <span><FaDatabase /> SQL</span>
-          {/*<span><SiSupaBase /> SupaBase </span>
-           ... */}
-        </div>
-
-        <div className="skill-card">
-          <h3>{t.skills.tools}</h3>
-
-          <span><FaGitAlt /> Git</span>
-          <span><FaGithub /> GitHub</span>
-          <span><FaCode /> VS Code</span>
-          <span><FaReact /> React Native</span>
-          <span><SiTrello /> Trello</span>
-          <span><SiFigma /> Figma</span> 
-          <span><SiDocker /> Docker</span>
-          
-  <span><FaRocket /> Expo</span>
-        </div>
-
+      <div className="skills__marquees">
+        <MarqueeRow items={rowLeft} reverse={false} />
+        <MarqueeRow items={rowRight} reverse={true} />
       </div>
 
     </section>

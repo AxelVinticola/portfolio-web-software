@@ -1,43 +1,178 @@
-.skills {
-  padding: 120px 8%;
+.skills{
+  padding:110px 0;
+
+  background: var(--nav-cream, #F7F1E4);
+  color: var(--nav-navy, #10233F);
+
+  overflow:hidden;
 }
 
-.skills__grid {
-  margin-top: 70px;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 30px;
+.skills__header{
+  text-align:center;
+
+  max-width:600px;
+  margin:0 auto 70px;
+
+  padding:0 8%;
 }
 
-.skill-card {
-  background:var(--surface);
-  border:1px solid var(--border);
-  border-radius: 18px;
-  padding: 30px;
-  transition: 0.3s;
+.skills__header h2{
+  font-family:"Fraunces", Georgia, serif;
+  font-weight:600;
+  font-style:italic;
+  font-size:2.6rem;
+
+  color: var(--nav-navy, #10233F);
+
+  margin-bottom:12px;
 }
 
-.skill-card:hover {
-  transform: translateY(-8px);
-  border-color:var(--primary);
+.skills__header p{
+  color: var(--nav-navy-soft, #3C4A5E);
+  font-size:1.02rem;
 }
 
-.skill-card h3 {
-  color:var(--text);
-  margin-bottom: 25px;
-  font-size: 1.2rem;
+/* =========================
+   CINTAS INFINITAS
+========================= */
+
+.skills__marquees{
+  display:flex;
+  flex-direction:column;
+  gap:26px;
 }
 
-.skill-card span {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  margin-bottom: 18px;
-  color:var(--text-secondary);
-  font-size: 1rem;
+.tech-marquee{
+  width:100%;
+  overflow:hidden;
+
+  /* Desvanece los bordes para que las tecnologías no "corten" de golpe */
+  -webkit-mask-image: linear-gradient(90deg, transparent, black 8%, black 92%, transparent);
+  mask-image: linear-gradient(90deg, transparent, black 8%, black 92%, transparent);
 }
 
-.skill-card svg {
-  color:var(--primary);
-  font-size: 1.3rem;
+.tech-marquee__track{
+  display:flex;
+  width:max-content;
+  gap:16px;
+
+  animation: marqueeScroll 46s linear infinite;
+}
+
+.tech-marquee__track--reverse{
+  animation-direction: reverse;
+}
+
+.tech-marquee:hover .tech-marquee__track{
+  animation-play-state: paused;
+}
+
+@keyframes marqueeScroll{
+  from{ transform: translateX(0); }
+  to{ transform: translateX(-50%); }
+}
+
+/* =========================
+   TARJETA DE TECNOLOGÍA
+========================= */
+
+.tech-chip{
+  flex-shrink:0;
+
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:10px;
+
+  min-width:110px;
+
+  padding:20px 14px;
+
+  border-radius:14px;
+  border:1px solid var(--nav-line, rgba(16,35,63,.14));
+
+  background: var(--nav-white, #FFFFFF);
+
+  transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease;
+}
+
+.tech-chip:hover{
+  /* transform: translateY(-5px) scale(1.06); */
+
+  border-color: var(--nav-navy, #10233F);
+
+  box-shadow: 0 16px 32px rgba(16, 35, 63, 0.14);
+}
+
+.tech-chip__icon{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  height:28px;
+
+  font-size:1.7rem;
+
+  color: var(--nav-navy, #10233F);
+}
+
+.tech-chip__name{
+  font-size:.76rem;
+  font-weight:600;
+
+  color: var(--nav-navy-soft, #3C4A5E);
+
+  white-space:nowrap;
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-width:768px){
+
+  .skills{
+    padding:70px 0;
+  }
+
+  .skills__header{
+    margin-bottom:50px;
+  }
+
+  .skills__header h2{
+    font-size:2.1rem;
+  }
+
+  .tech-chip{
+    min-width:92px;
+    padding:16px 10px;
+  }
+
+  .tech-chip__icon{
+    font-size:1.4rem;
+  }
+
+  .tech-chip__name{
+    font-size:.7rem;
+  }
+
+}
+
+/* =========================
+   ACCESIBILIDAD
+========================= */
+
+@media (prefers-reduced-motion: reduce){
+
+  .tech-marquee{
+    overflow-x:auto;
+
+    -webkit-mask-image:none;
+    mask-image:none;
+  }
+
+  .tech-marquee__track{
+    animation:none !important;
+  }
+
 }
