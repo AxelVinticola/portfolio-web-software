@@ -81,12 +81,18 @@ const es = {
   },
 
   projects: {
-    title: "Proyectos",
-    subtitle: "Proyectos desarrollados durante mi formación y experiencia práctica.",
+    title: "Proyectos Destacados",
+    subtitle: "Los proyectos más completos que desarrollé, de punta a punta.",
+
+    viewCase: "Ver caso completo",
+    viewImages: "Ver imágenes del proyecto",
+    close: "Cerrar",
 
     erp: {
       type: "SISTEMA ERP · FULL STACK",
       title: "F.P Laura ERP",
+      shortDescription:
+        "Gestión integral de una forrajería y peluquería canina: inventario, turnos, ventas y más, en un solo sistema.",
       description:
         "Sistema ERP web desarrollado para la gestión integral de una forrajería y peluquería canina. Centraliza las principales operaciones del negocio en una única plataforma.",
       technologies: "Tecnologías",
@@ -109,6 +115,8 @@ const es = {
     salon: {
       type: "SISTEMA",
       title: "Yume Sakura Salon",
+      shortDescription:
+        "App de gestión y reservas en tiempo real para un salón de belleza, con agenda y personal centralizados.",
       description:
         "Sistema de gestión empresarial (ERP) para la administración integral de Yume Sakura Salon, un salón de belleza. Incluye módulo de reservas en línea para clientes, agenda en tiempo real y gestión de personal y servicios desde una interfaz moderna e intuitiva.",
       technologies: "Tecnologías",
@@ -130,6 +138,11 @@ const es = {
       close: "Cerrar galería",
       previous: "Imagen anterior",
       next: "Imagen siguiente",
+    },
+
+    more: {
+      title: "Más proyectos",
+      subtitle: "Landing pages y sitios que desarrollé para distintos clientes.",
     },
   },
 

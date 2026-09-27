@@ -83,9 +83,15 @@ const en = {
     title: "Projects",
     subtitle: "Projects developed during my training and practical experience.",
 
+    viewCase: "View full case",
+    viewImages: "View project images",
+    close: "Close",
+
     erp: {
       type: "ERP SYSTEM · FULL STACK",
       title: "F.P Laura ERP",
+      shortDescription:
+        "End-to-end management for a pet supply store and dog grooming salon: inventory, appointments, sales and more, in one system.",
       description:
         "Web-based ERP system developed for the comprehensive management of a pet food store and dog grooming business. It centralizes the main business operations on a single platform.",
       technologies: "Technologies",
@@ -108,6 +114,8 @@ const en = {
     salon: {
       type: "SYSTEM",
       title: "Yume Sakura Salon",
+      shortDescription:
+        "Real-time management and booking app for a beauty salon, with centralized scheduling and staff.",
       description:
         "Enterprise management system (ERP) for the comprehensive administration of Yume Sakura Salon, a beauty salon. It includes an online booking module for customers, real-time scheduling, and staff and service management through a modern and intuitive interface.",
       technologies: "Technologies",
@@ -129,6 +137,11 @@ const en = {
       close: "Close gallery",
       previous: "Previous image",
       next: "Next image",
+    },
+
+    more: {
+      title: "More Projects",
+      subtitle: "Landing pages and websites I built for different clients.",
     },
   },
 
