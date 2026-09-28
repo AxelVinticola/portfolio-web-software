@@ -1,0 +1,120 @@
+.gallery {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+
+  /* Ocupa todo el ancho absoluto de la pantalla */
+  width: 100vw;
+  position: relative;
+  left: 50%;
+  right: 50%;
+  margin-left: -50vw;
+  margin-right: -50vw;
+
+  overflow: hidden;
+
+  /* Desvanecimiento suave en las orillas de la pantalla (ajustado al 4% y 96%) */
+  -webkit-mask-image: linear-gradient(90deg, transparent, black 4%, black 96%, transparent);
+  mask-image: linear-gradient(90deg, transparent, black 4%, black 96%, transparent);
+}
+
+.gallery-row {
+  overflow: hidden;
+}
+
+.gallery-row__track {
+  display: flex;
+  gap: 24px;
+
+  width: max-content;
+
+  animation: galleryScrollX 34s linear infinite;
+}
+
+.gallery-row__track--reverse {
+  animation-direction: reverse;
+}
+
+.gallery-row:hover .gallery-row__track {
+  animation-play-state: paused;
+}
+
+@keyframes galleryScrollX {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+/* =========================
+   IMAGEN
+========================= */
+
+.gallery-image {
+  flex-shrink: 0;
+  display: block;
+
+  height: 240px;
+  aspect-ratio: 1886 / 834;
+
+  border-radius: 14px;
+  overflow: hidden;
+
+  border: 1px solid var(--proj-line, rgba(247, 241, 228, .15));
+
+  transition: transform .3s ease, box-shadow .3s ease, border-color .3s ease;
+}
+
+.gallery-image:hover {
+  border-color: rgba(247, 241, 228, 0.45);
+  box-shadow: 0 0 20px rgba(247, 241, 228, 0.15);
+}
+
+.gallery-image img {
+  width: 100%;
+  height: 100%;
+
+  object-fit: cover;
+  display: block;
+}
+
+.gallery-image__placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 100%;
+  height: 100%;
+
+  background: var(--proj-navy, #10233F);
+  border: 1px dashed var(--proj-line, rgba(247, 241, 228, .15));
+
+  color: var(--proj-text-soft, rgba(247, 241, 228, .6));
+  font-size: .85rem;
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-width: 768px) {
+
+  .gallery {
+    gap: 14px;
+  }
+
+  .gallery-row__track {
+    gap: 14px;
+  }
+
+  .gallery-image {
+    height: 150px;
+  }
+
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+  .gallery-row__track {
+    animation: none !important;
+  }
+
+}

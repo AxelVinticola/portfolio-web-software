@@ -557,7 +557,7 @@
 
 .landing-pages__columns{
   display:flex;
-  gap:22px;
+  gap:20px;
 
   max-width:1300px;
   height:640px;
@@ -582,7 +582,7 @@
   flex-direction:column;
   gap:22px;
 
-  animation: landingScroll 30s linear infinite;
+  animation: landingScroll 6s linear infinite;
 }
 
 .landing-marquee__track--reverse{
@@ -625,7 +625,7 @@
   position:relative;
 
   width:100%;
-  aspect-ratio: 16 / 10;
+  aspect-ratio: 16 / 9;
 
   background: rgba(255, 255, 255, 0.03);
 
@@ -728,6 +728,7 @@
 
   .landing-pages{
     margin-top:70px;
+    overflow: hidden;
   }
 
   .landing-pages__columns{
@@ -759,4 +760,9 @@
     animation:none !important;
   }
 
+}
+
+/* Oculta el contenedor de información (título y descripción) */
+.landing-card__info {
+  display: none;
 }

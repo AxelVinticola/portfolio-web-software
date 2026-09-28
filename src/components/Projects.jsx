@@ -1,5 +1,6 @@
 import "../styles/projects.css";
 import { useEffect, useRef, useState } from "react";
+import Gallery from "./Gallery";
 
 import {
   FaPython,
@@ -234,129 +235,6 @@ function GalleryModal({ data, t, onClose }) {
 }
 
 // =========================================================
-// ÁLBUM DE LANDING PAGES — estructura lista, con datos de
-// ejemplo para que los reemplaces por los tuyos.
-// Cada objeto acepta:
-//  - name: nombre del sitio
-//  - description: una línea corta de qué es
-//  - image: ruta a la captura de inicio de esa landing
-//  - url: link al sitio en vivo (si no está online, dejá null
-//    y la tarjeta deja de ser clickeable automáticamente)
-// =========================================================
-
-const landingPages = [
-  {
-    name: "Landing 1",
-    description: "Reemplazá esta descripción por la tuya",
-    image: "/projects/landings/hilosysuelas.png",
-    url: null,
-  },
-  {
-    name: "Landing 2",
-    description: "Reemplazá esta descripción por la tuya",
-    image: "/projects/landings/landing-2.png",
-    url: null,
-  },
-  {
-    name: "Landing 3",
-    description: "Reemplazá esta descripción por la tuya",
-    image: "/projects/landings/landing-3.png",
-    url: null,
-  },
-  {
-    name: "Landing 4",
-    description: "Reemplazá esta descripción por la tuya",
-    image: "/projects/landings/landing-4.png",
-    url: null,
-  },
-  {
-    name: "Landing 5",
-    description: "Reemplazá esta descripción por la tuya",
-    image: "/projects/landings/landing-5.png",
-    url: null,
-  },
-  {
-    name: "Landing 6",
-    description: "Reemplazá esta descripción por la tuya",
-    image: "/projects/landings/landing-6.png",
-    url: null,
-  },
-  {
-    name: "Landing 7",
-    description: "Reemplazá esta descripción por la tuya",
-    image: "/projects/landings/landing-7.png",
-    url: null,
-  },
-  {
-    name: "Landing 8",
-    description: "Reemplazá esta descripción por la tuya",
-    image: "/projects/landings/landing-8.png",
-    url: null,
-  },
-];
-
-function LandingCard({ landing }) {
-
-  const [imageFailed, setImageFailed] = useState(false);
-
-  const content = (
-    <>
-      <div className="landing-card__image">
-        {!imageFailed ? (
-          <img
-            src={landing.image}
-            alt={landing.name}
-            loading="lazy"
-            onError={() => setImageFailed(true)}
-          />
-        ) : (
-          <span className="landing-card__placeholder">Agregar imagen</span>
-        )}
-      </div>
-
-      <div className="landing-card__info">
-        <h4>{landing.name}</h4>
-        <p>{landing.description}</p>
-      </div>
-    </>
-  );
-
-  if (landing.url) {
-    return (
-      <a
-        href={landing.url}
-        target="_blank"
-        rel="noopener noreferrer"
-        className="landing-card"
-      >
-        {content}
-      </a>
-    );
-  }
-
-  return <div className="landing-card">{content}</div>;
-}
-
-// Una columna que sube o baja en loop infinito — el array se duplica
-// para que el loop sea perfecto (misma técnica que las cintas de
-// Tecnologías, pero en vertical). Se pausa entera al pasar el cursor.
-function LandingColumn({ items, direction }) {
-  const doubled = [...items, ...items];
-
-  return (
-    <div className="landing-marquee">
-      <div
-        className={`landing-marquee__track ${direction === "down" ? "landing-marquee__track--reverse" : ""}`}
-      >
-        {doubled.map((landing, index) => (
-          <LandingCard key={index} landing={landing} />
-        ))}
-      </div>
-    </div>
-  );
-}
-
-// =========================================================
 // SECCIÓN COMPLETA
 // =========================================================
 
@@ -478,14 +356,14 @@ function Projects({ t }) {
 
       images: [
         { src: "/projects/erp/inicio.png", title: "Inicio" },
-        { src: "/projects/erp/TurnoCli.png", title: "Turno vista cliente" },
+        { src: "/projects/erp/turnocli.png", title: "Turno vista cliente" },
         { src: "/projects/erp/turnoemp.png", title: "Administración de turnos" },
         { src: "/projects/erp/calendario.png", title: "Calendario de turnos" },
         { src: "/projects/erp/detalleturno.png", title: "Información adicional del turno" },
         { src: "/projects/erp/caja.png", title: "Gestión y apertura de caja" },
-        { src: "/projects/erp/Empleados.png", title: "Gestión de empleados" },
+        { src: "/projects/erp/empleados.png", title: "Gestión de empleados" },
         { src: "/projects/erp/inventario.png", title: "Gestión de productos e inventario" },
-        { src: "/projects/erp/Proveedores.png", title: "Gestión de proveedores" },
+        { src: "/projects/erp/proveedores.png", title: "Gestión de proveedores" },
       ],
     },
 
@@ -585,7 +463,7 @@ function Projects({ t }) {
       )}
 
       {/* =========================
-          ÁLBUM DE LANDING PAGES
+          GALERÍA DE LANDING PAGES
       ========================== */}
 
       <div className="landing-pages">
@@ -595,28 +473,12 @@ function Projects({ t }) {
           <p>{t.projects.more?.subtitle || "Landing pages y sitios que desarrollé para distintos clientes."}</p>
         </div>
 
-        <div className="landing-pages__columns">
-          {[0, 1, 2, 3].map((colIndex) => {
-            // Reparte las landing pages entre las 4 columnas (col 0 y 2
-            // suben, col 1 y 3 bajan)
-            const columnItems = landingPages.filter(
-              (_, i) => i % 4 === colIndex
-            );
-
-            return (
-              <LandingColumn
-                key={colIndex}
-                items={columnItems}
-                direction={colIndex % 2 === 0 ? "up" : "down"}
-              />
-            );
-          })}
-        </div>
+        <Gallery />
 
       </div>
 
     </section>
-  );
+  ); 
 }
 
 export default Projects;
