@@ -5,12 +5,13 @@ import Hero from "./components/Hero";
 import About from "./components/About";
 import Skills from "./components/Skills";
 import Projects from "./components/Projects";
-import Education from "./components/Education";
+import Education from "./components/Testimonials"
 import Contact from "./components/Contact";
 import Footer from "./components/Footer";
 
 import es from "./locales/es";
 import en from "./locales/en";
+import Testimonials from "./components/Testimonials";
 
 function App() {
 
@@ -35,7 +36,7 @@ function App() {
 
       <Projects t={t}/>
 
-      <Education t={t}/>
+      <Testimonials t={t}/>
 
       <Contact t={t}/>
 

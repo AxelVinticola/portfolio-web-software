@@ -3,7 +3,7 @@ const es = {
     about: "Sobre mí",
     skills: "Tecnologías",
     projects: "Proyectos",
-    education: "Educación",
+    testimonials: "Testimonios",
     contact: "Contacto",
   },
   
@@ -146,7 +146,7 @@ const es = {
     },
   },
 
-education: {
+testimonials: {
     title: "Educación",
     subtitle: "Formación académica y preparación profesional.",
 
@@ -185,29 +185,42 @@ education: {
 
   contact: {
     title: "Contacto",
-    subtitle: "¿Tenés un proyecto o una oportunidad? Hablemos.",
-
+    subtitle: "¿Tenés un proyecto en mente? Hablemos.",
+ 
     heading: "Construyamos algo juntos.",
-
+ 
     paragraph1:
-      "Estoy interesado en oportunidades dentro del sector IT, especialmente en desarrollo Full Stack y desarrollo de aplicaciones web y móviles.",
-
-    paragraph2:
-      "Si querés conocer más sobre mi trabajo o conversar sobre una oportunidad profesional, podés contactarme.",
-
+      "Si tenés una idea, un negocio que necesita presencia digital, o un sistema que ya se te quedó corto, contame de qué se trata. Te respondo yo mismo, sin intermediarios.",
+ 
     location: "Argentina",
-
+ 
     email: "Email",
     phone: "Teléfono",
     github: "GitHub",
     linkedin: "LinkedIn",
-
+ 
     githubAction: "Ver mis proyectos",
     linkedinAction: "Conectemos profesionalmente",
-
+ 
     socialTitle: "Redes Sociales",
     instagram: "Instagram",
     tiktok: "TikTok",
+ 
+    form: {
+      nameLabel: "Nombre",
+      namePlaceholder: "¿Cómo te llamás?",
+ 
+      projectTypeLabel: "Tipo de proyecto",
+      projectTypeOther: "Otro / No estoy seguro",
+ 
+      messageLabel: "Contame tu proyecto",
+      messagePlaceholder: "¿Qué necesitás? Contame un poco y te respondo a la brevedad.",
+ 
+      submit: "Enviar por WhatsApp",
+      sending: "Abriendo WhatsApp…",
+ 
+      directTitle: "O escribime directo",
+    },
     
   },
 

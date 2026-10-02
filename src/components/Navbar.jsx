@@ -3,7 +3,7 @@ import { FaGithub } from "react-icons/fa";
 import { HiOutlineBars3, HiOutlineXMark } from "react-icons/hi2";
 import { useEffect, useRef, useState } from "react";
 
-const SECTIONS = ["about", "skills", "projects", "education", "contact"];
+const SECTIONS = ["about", "skills", "projects", "testimonials", "contact"];
 
 function Navbar({ language, setLanguage, t }) {
 
@@ -79,7 +79,7 @@ function Navbar({ language, setLanguage, t }) {
     { id: "about", label: t.navbar.about },
     { id: "skills", label: t.navbar.skills },
     { id: "projects", label: t.navbar.projects },
-    { id: "education", label: t.navbar.education },
+    { id: "testimonials", label: t.navbar.testimonials },
     { id: "contact", label: t.navbar.contact },
   ];
 

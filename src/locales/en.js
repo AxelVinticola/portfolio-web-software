@@ -3,7 +3,7 @@ const en = {
     about: "About",
     skills: "Technologies",
     projects: "Projects",
-    education: "Education",
+    testimonials: "Testimonials",
     contact: "Contact",
   },
  hero: {
@@ -145,7 +145,7 @@ const en = {
     },
   },
 
-  education: {
+  testimonials: {
     title: "Education",
     subtitle: "Academic background and professional preparation.",
 
@@ -184,30 +184,42 @@ const en = {
 
   contact: {
     title: "Contact",
-    subtitle: "Have a project or an opportunity? Let's talk.",
-
+    subtitle: "Have a project in mind? Let's talk.",
+ 
     heading: "Let's build something together.",
-
+ 
     paragraph1:
-      "I am interested in opportunities within the IT sector, especially in Full Stack development and web and mobile application development.",
-
-    paragraph2:
-      "If you would like to learn more about my work or discuss a professional opportunity, feel free to contact me.",
-
+      "If you have an idea, a business that needs a digital presence, or a system that's outgrown itself, tell me about it. I'll reply myself, no middlemen.",
+ 
     location: "Argentina",
-
+ 
     email: "Email",
     phone: "Phone",
     github: "GitHub",
     linkedin: "LinkedIn",
-
+ 
     githubAction: "View my projects",
     linkedinAction: "Let's connect professionally",
-    
-
+ 
     socialTitle: "Social Media",
     instagram: "Instagram",
     tiktok: "TikTok",
+ 
+    form: {
+      nameLabel: "Name",
+      namePlaceholder: "What's your name?",
+ 
+      projectTypeLabel: "Project type",
+      projectTypeOther: "Other / Not sure",
+ 
+      messageLabel: "Tell me about your project",
+      messagePlaceholder: "What do you need? Give me a quick rundown and I'll get back to you shortly.",
+ 
+      submit: "Send via WhatsApp",
+      sending: "Opening WhatsApp…",
+ 
+      directTitle: "Or reach me directly",
+    },
   },
 
 };
