@@ -6,6 +6,13 @@ const en = {
     testimonials: "Testimonials",
     contact: "Contact",
   },
+  footer: {
+    navTitle: "Navigation",
+    contactTitle: "Contact",
+    madeIn: "Made with care in Salta, Argentina",
+    backToTop: "Back to top",
+  },
+
  hero: {
 
     available: "Available for new projects",
