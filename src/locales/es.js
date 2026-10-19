@@ -24,7 +24,7 @@ const es = {
       roleTrail: "que funcionan.",
 
       role1: "Sitios Web",
-      role2: "Software a Medida",
+      role2: "Software",
       role3: "Sistemas ERP",
       role4: "Apps Móviles",
 

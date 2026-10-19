@@ -1,579 +1,628 @@
-.hero{
-
-  --hero-navy: #10233F;
-  --hero-navy-deep: #060D18;
-  --hero-navy-soft: #3C4A5E;
-  --hero-cream: #F7F1E4;
-  --hero-white: #FFFFFF;
-  --hero-line: rgba(16, 35, 63, 0.14);
+.hero {
+  --hx-black: #121212;
+  --hx-navy: #10233F;
+  --hx-cream: #F7F1E4;
+  --hx-white: #FFFFFF;
 
   position: sticky;
   top: 0;
-
-  isolation:isolate;
-  height:100vh;
-  overflow:hidden;
-
+  isolation: isolate;
+  height: 100vh;
+  height: 100svh;
+  overflow: hidden;
   z-index: 1;
-
-  background: var(--hero-cream);
-  color: var(--hero-navy);
+  background: var(--hx-cream);
+  color: var(--hx-black);
 }
 
-.hero__inner{
-  height:100%;
-
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  gap:70px;
-  padding:0 8%;
-
-  transition: transform .1s linear, filter .1s linear, opacity .1s linear;
+.hero__inner {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* 88px arriba: deja libre la zona del navbar fijo */
+  padding: 88px 3% 24px;
+  transition: transform 0.1s linear, filter 0.1s linear, opacity 0.1s linear;
   will-change: transform, filter, opacity;
 }
 
-/* Degradé sutil en una esquina, no en todo el fondo */
+/* ================= MARCO PRINCIPAL ================= */
 
-.hero__corner-glow{
-  position:absolute;
-  top:-20%;
-  right:-15%;
-  width:60%;
-  height:140%;
-
-  background: radial-gradient(circle at top right, var(--hero-navy) 0%, var(--hero-navy-deep) 35%, transparent 70%);
-  opacity:.06;
-
-  z-index:0;
-  pointer-events:none;
+.hero__frame {
+  position: relative;
+  width: 100%;
+  max-width: 1350px;
+  height: 100%;
+  max-height: 780px;
+  /* Cambiado: Sin borde negro alrededor */
+  border: none;
+  border-radius: 32px;
+  background: var(--hx-cream);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
 }
 
-.hero__content{
-  max-width:600px;
-  z-index:2;
-
-  animation: heroContentIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
+.hero__notch-header {
+  /* Cambiado: Ocultamos la solapa negra superior */
+  display: none;
+  flex-shrink: 0;
+  width: 100%;
+  height: 44px;
+  background: var(--hx-black);
+  clip-path: polygon(0 0, 100% 0, 100% 65%, 80% 65%, 77% 100%, 23% 100%, 20% 65%, 0 65%);
 }
 
-@keyframes heroContentIn {
-  from { opacity: 0; transform: translateY(24px); }
-  to { opacity: 1; transform: translateY(0); }
+/* ================= GRILLA ================= */
+
+.hero__grid {
+  --pad-x: 28px;
+  --col-r: 320px;
+
+  position: relative;
+  flex: 1;
+  min-height: 0;
+  display: grid;
+  grid-template-columns: 1fr var(--col-r);
+  grid-template-rows: auto 1fr;
+  gap: 20px;
+  padding: 20px var(--pad-x) 24px;
 }
 
-/* =========================
-   EYEBROW: marca + tagline
-========================= */
-
-.hero__eyebrow{
-  display:flex;
-  align-items:center;
-  gap:10px;
-
-  margin-bottom:22px;
-
-  font-size:.85rem;
-  letter-spacing:.5px;
-  text-transform:uppercase;
+/* 1. TÍTULO */
+.hero__title-area {
+  grid-column: 1;
+  grid-row: 1;
+  min-width: 0;
 }
 
-.hero__eyebrow-brand{
-  font-weight:700;
-  color: var(--hero-navy);
+.hero__chip {
+  display: none;
 }
 
-.hero__eyebrow-dot{
-  width:4px;
-  height:4px;
-  border-radius:50%;
-  background: var(--hero-navy-soft);
+/* 1. TÍTULO CON TAMAÑO BALANCEADO */
+.hero__title {
+  font-family: "Anton", "Archivo Black", Impact, sans-serif;
+  text-transform: uppercase;
+  
+  /* Tamaño masivo y alto */
+  font-size: clamp(3.8rem, 6.8vw, 6.6rem);
+  
+  line-height: 0.88;
+  letter-spacing: -1.5px;
+  color: var(--hx-black);
+  margin: 0;
+  
+  /* Comprime la tipografía a lo ancho para que entren frases largas */
+  transform: scaleX(0.88);
+  transform-origin: left center;
+  width: 113%;
 }
 
-.hero__eyebrow-tagline{
-  color: var(--hero-navy-soft);
-  font-weight:400;
-  letter-spacing:.3px;
-  text-transform:none;
+/* ================= 3. CONTENEDOR Y BADGE AZUL ================= */
+.hero__role-wrapper {
+  display: inline-block;
+  vertical-align: bottom;
+  max-width: 100%;
+  height: auto;
+  overflow: visible; 
 }
 
-/* =========================
-   DISPONIBILIDAD
-========================= */
-
-.hero__available{
-  display:inline-flex;
-  align-items:center;
-  gap:8px;
-
-  margin-bottom:20px;
-
-  font-size:.9rem;
-  color: var(--hero-navy-soft);
+.hero__role {
+  display: inline-block;
+  padding: 0.02em 0.18em;
+  line-height: 0.96em;
+  white-space: nowrap;
+  border-radius: 10px;
+  background: var(--hx-navy);
+  color: var(--hx-cream);
+  
+  /* Animación Blur Reveal */
+  animation: blurIn 0.55s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
-.hero__available-dot{
-  width:7px;
-  height:7px;
-  border-radius:50%;
-  background:#2F7A4C;
-
-  box-shadow:0 0 0 0 rgba(47, 122, 76, 0.5);
-  animation: badgePulse 2s ease-out infinite;
+@keyframes blurIn {
+  0% {
+    opacity: 0;
+    filter: blur(8px);
+    transform: scale(0.92) translateY(10px);
+  }
+  100% {
+    opacity: 1;
+    filter: blur(0px);
+    transform: scale(1) translateY(0);
+  }
 }
 
-@keyframes badgePulse{
-  0%{ box-shadow:0 0 0 0 rgba(47, 122, 76, 0.45); }
-  70%{ box-shadow:0 0 0 7px rgba(47, 122, 76, 0); }
-  100%{ box-shadow:0 0 0 0 rgba(47, 122, 76, 0); }
+/* 2. TARJETA VERTICAL (logo). El contorno se dibuja con DOS capas:
+   la de afuera es negra (el borde) y la de adentro navy, ambas con la
+   esquina recortada — así la diagonal también tiene trazo. */
+.hero__top-right-card {
+  grid-column: 2;
+  grid-row: 1 / 3;
+  justify-self: end;
+  width: calc(var(--col-r) - 60px);
+  /* No usa un alto fijo: se adapta al espacio y deja 110px abajo,
+     donde la tarjeta de notificación se superpone a propósito */
+  height: calc(100% - 110px);
+  min-height: 200px;
+  padding: 2.5px;
+  background: var(--hx-black);
+  border-radius: 24px;
+  clip-path: polygon(70px 0, 100% 0, 100% 100%, 0 100%, 0 70px);
 }
 
-/* =========================
-   TÍTULO SERIF + ROL ROTATIVO
-========================= */
-
-.hero__title{
-  font-family: "Fraunces", Georgia, serif;
-  font-weight:600;
-  font-size:3.4rem;
-  line-height:1.2;
-
-  color: var(--hero-navy);
-
-  margin-bottom:20px;
+.hero__top-right-inner {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  background: var(--hx-navy);
+  border-radius: 21.5px;
+  overflow: hidden;
+  clip-path: polygon(68.5px 0, 100% 0, 100% 100%, 0 100%, 0 68.5px);
 }
 
-.hero__role-wrapper{
-  position:relative;
-  display:inline-block;
-  overflow:hidden;
-  vertical-align:bottom;
-  height:1.2em;
+.hero__top-right-placeholder {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px 20px 50px 28px;
 }
 
-.hero__role{
-  position:relative;
-  display:inline-block;
-  font-style:italic;
-  color: var(--hero-navy);
-
-  animation: roleIn 0.55s cubic-bezier(0.16, 1, 0.3, 1) both;
+.hero__accent-img {
+  max-width: 70%;
+  max-height: 55%;
+  object-fit: contain;
 }
 
-.hero__role::after{
-  content:"";
-  position:absolute;
-  left:0;
-  right:0;
-  bottom:2px;
-  height:3px;
-  background: var(--hero-navy);
-  opacity:.25;
+.hero__vertical-accent {
+  width: 36px;
+  background: var(--hx-black);
+  border-left: 2px solid var(--hx-cream);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 0 58px;
+  font-weight: 800;
+  color: var(--hx-cream);
 }
 
-@keyframes roleIn{
-  from{ opacity:0; transform:translateY(100%); }
-  to{ opacity:1; transform:translateY(0); }
+/* 3. SELLO: ahora ocupa el hueco entre la tarjeta negra y la columna
+   derecha, en vez de flotar encima del título */
+.hero__seal {
+  position: absolute;
+  left: calc(100% - var(--pad-x) - var(--col-r) - 44px);
+  top: 52%;
+  transform: translate(-50%, -50%);
+  width: 176px;
+  height: 176px;
+  z-index: 10;
 }
 
-.hero__meta{
-  font-size:1rem;
-  color: var(--hero-navy-soft);
-  margin-bottom:20px;
+.hero__seal-ring {
+  width: 100%;
+  height: 100%;
+  fill: var(--hx-black);
+  animation: sealSpin 16s linear infinite;
 }
 
-.hero__description{
-  font-size:1.08rem;
-  line-height:1.85;
-  color: var(--hero-navy-soft);
-  margin-bottom:35px;
-  max-width:520px;
+@keyframes sealSpin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
 }
 
-/* =========================
-   BOTONES
-========================= */
-
-.hero__buttons{
-  display:flex;
-  align-items:center;
-  flex-wrap:wrap;
-  gap:20px;
-  margin-bottom:40px;
+.hero__seal-center {
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  width: 50%;
+  height: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  border: 2px solid var(--hx-black);
+  background: var(--hx-cream);
+  color: var(--hx-cream);
+  text-align: center;
+  font-size: 0.64rem;
+  font-weight: 700;
+  line-height: 1.25;
+  text-decoration: none;
+  transition: transform 0.3s ease, background 0.3s ease;
 }
 
-.hero__btn{
-  padding:15px 30px;
-  border-radius:8px;
-  font-weight:600;
-  font-size:.95rem;
-  text-decoration:none;
-  transition: transform .25s ease, background .3s ease, color .3s ease, box-shadow .3s ease;
+/* Logo pintado con el color del tema usando el PNG (transparente) como
+   máscara: funciona aunque el logo original sea blanco */
+.hero__seal-logo {
+  width: 80%;
+  height: 80%;
+  background-color: var(--hx-navy);
+  -webkit-mask: url("/logoAV.png") center / contain no-repeat;
+  mask: url("/logoAV.png") center / contain no-repeat;
+  transition: background-color 0.3s ease;
 }
 
-.hero__btn--primary{
-  background: var(--hero-navy);
-  color: var(--hero-cream);
-  box-shadow: 0 10px 24px rgba(16, 35, 63, 0.22);
+.hero__seal-label {
+  display: none;
 }
 
-.hero__btn--primary:hover{
-  transform: translateY(-3px);
-  box-shadow: 0 14px 30px rgba(16, 35, 63, 0.3);
+/* Dos rombos decorativos, como en el diseño de referencia */
+.hero__seal-center::before,
+.hero__seal-center::after {
+  content: "";
+  position: absolute;
+  top: -3px;
+  width: 6px;
+  height: 6px;
+  background: var(--hx-navy);
+  transform: rotate(45deg);
 }
 
-.hero__btn--secondary{
-  border:1.5px solid var(--hero-navy);
-  color: var(--hero-navy);
+.hero__seal-center::before { left: 14%; }
+.hero__seal-center::after { right: 14%; }
+
+.hero__seal-ring text {
+  font-family: "Poppins", sans-serif;
+  font-weight: 600;
 }
 
-.hero__btn--secondary:hover{
-  background: var(--hero-navy);
-  color: var(--hero-cream);
-  transform: translateY(-3px);
+.hero__seal-center:hover {
+  transform: scale(1.08);
+  background: var(--hx-navy);
 }
 
-.hero__cv-link{
-  color: var(--hero-navy-soft);
-  font-size:.9rem;
-  text-decoration:underline;
-  text-underline-offset:4px;
-  transition:color .3s ease;
+.hero__seal-center:hover .hero__seal-logo {
+  background-color: var(--hx-cream);
 }
 
-.hero__cv-link:hover{
-  color: var(--hero-navy);
+/* 4. TARJETA NEGRA */
+.hero__bottom-left-card {
+  grid-column: 1;
+  grid-row: 2;
+  position: relative;
+  align-self: end;
+  width: 100%;
+  max-width: 640px;
+  min-height: 220px;
+  padding: 30px 36px;
+  display: flex;
+  align-items: center;
+  background: var(--hx-black);
+  color: var(--hx-cream);
+  border-radius: 24px;
+  clip-path: polygon(0 0, 78% 0, 100% 28%, 100% 100%, 0 100%);
 }
 
-/* =========================
-   STATS
-========================= */
-
-.hero__stats{
-  display:flex;
-  gap:40px;
+.hero__bottom-left-content {
+  max-width: 540px;
 }
 
-.hero__stat{
-  display:flex;
-  flex-direction:column;
-  gap:2px;
+.hero__card-description {
+  font-size: 0.98rem;
+  line-height: 1.6;
+  color: rgba(247, 241, 228, 0.8);
+  margin: 0 0 22px;
 }
 
-.hero__stat strong{
-  font-family: "Fraunces", Georgia, serif;
-  font-size:1.7rem;
-  color: var(--hero-navy);
+.hero__buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
 }
 
-.hero__stat span{
-  font-size:.8rem;
-  letter-spacing:.3px;
-  text-transform:uppercase;
-  color: var(--hero-navy-soft);
+.hero__btn {
+  padding: 12px 26px;
+  border-radius: 999px;
+  border: 2px solid var(--hx-black);
+  font-size: 0.88rem;
+  font-weight: 700;
+  white-space: nowrap;
+  text-decoration: none;
+  transition: transform 0.25s ease, background 0.25s ease, color 0.25s ease;
 }
 
-/* =========================
-   DIVISOR EDITORIAL
-========================= */
-
-.hero__divider{
-  width:1px;
-  align-self:stretch;
-  margin:60px 0;
-
-  background: var(--hero-line);
-
-  z-index:1;
+.hero__btn--primary {
+  background: var(--hx-cream);
+  color: var(--hx-black);
 }
 
-/* =========================
-   CONSTELACIÓN: LOGO + SERVICIOS ORBITANDO
-========================= */
-
-.hero__constellation{
-  position:relative;
-  width:420px;
-  height:420px;
-
-  display:flex;
-  align-items:center;
-  justify-content:center;
-
-  perspective:1000px;
-
-  z-index:2;
+.hero__btn--primary:hover {
+  transform: translateY(-2px);
 }
 
-.hero__logo-glow{
-  position:absolute;
-  width:340px;
-  height:340px;
-  border-radius:50%;
-
-  background: radial-gradient(circle, rgba(16, 35, 63, 0.10) 0%, transparent 70%);
-  filter: blur(10px);
+.hero__btn--secondary {
+  background: transparent;
+  color: var(--hx-cream);
+  border-color: var(--hx-cream);
 }
 
-.hero__logo-shadow{
-  position:absolute;
-  bottom:58px;
-  width:150px;
-  height:26px;
-  border-radius:50%;
-
-  background: rgba(16, 35, 63, 0.18);
-  filter: blur(14px);
+.hero__btn--secondary:hover {
+  background: var(--hx-cream);
+  color: var(--hx-black);
+  transform: translateY(-2px);
 }
 
-.hero__logo-wrap{
-  animation: logoFloat 5s ease-in-out infinite;
+/* 5. TARJETA DE NOTIFICACIÓN (misma técnica de contorno en dos capas) */
+.hero__bottom-right-card {
+  grid-column: 2;
+  grid-row: 2;
+  position: relative;
+  align-self: end;
+  width: 100%;
+  z-index: 6;
+  padding: 2.5px;
+  background: var(--hx-black);
+  border-radius: 20px;
+  clip-path: polygon(0 22px, 22px 0, 100% 0, 100% 100%, 0 100%);
 }
 
-@keyframes logoFloat{
-  0%, 100%{ transform: translateY(0); }
-  50%{ transform: translateY(-14px); }
+.hero__notif-surface {
+  background: var(--hx-cream);
+  border-radius: 17.5px;
+  overflow: hidden;
+  clip-path: polygon(0 20.5px, 20.5px 0, 100% 0, 100% 100%, 0 100%);
 }
 
-.hero__logo{
-  width:200px;
-  height:200px;
-
-  display:flex;
-  align-items:center;
-  justify-content:center;
-
-  transform-style:preserve-3d;
-  transition: transform .2s ease-out;
+.hero__notif-header {
+  position: relative;
+  height: 26px;
 }
 
-.hero__logo img{
-  width:100%;
-  height:100%;
-  object-fit:contain;
-  pointer-events:none;
-
-  filter: drop-shadow(0 18px 30px rgba(16, 35, 63, 0.25));
+.hero__notif-notch {
+  position: absolute;
+  right: 0;
+  top: 0;
+  background: var(--hx-black);
+  color: var(--hx-cream);
+  padding: 3px 14px;
+  border-bottom-left-radius: 10px;
 }
 
-/* =========================
-   CHIPS DE SERVICIOS (orbitando)
-========================= */
-
-.hero__chip{
-  --parallax-x: 0px;
-  --parallax-y: 0px;
-
-  position:absolute;
-
-  padding:9px 18px;
-  border-radius:999px;
-
-  background: var(--hero-white);
-  border:1px solid var(--hero-line);
-
-  font-size:.82rem;
-  font-weight:500;
-  color: var(--hero-navy);
-
-  box-shadow: 0 8px 20px rgba(16, 35, 63, 0.08);
-
-  transform: translate(var(--parallax-x), var(--parallax-y));
-  transition: transform .3s ease-out;
-
-  white-space:nowrap;
+.hero__notif-dots {
+  font-size: 0.7rem;
+  letter-spacing: 2px;
 }
 
-.hero__chip--1{
-  top:8%;
-  left:2%;
-  animation: chipFloat 6s ease-in-out infinite;
+.hero__notif-body {
+  padding: 8px 20px 18px;
 }
 
-.hero__chip--2{
-  top:18%;
-  right:0%;
-  animation: chipFloat 7s ease-in-out infinite .5s;
+.hero__notif-title {
+  font-size: 0.88rem;
+  font-weight: 800;
+  margin: 0 0 6px;
+  color: var(--hx-black);
 }
 
-.hero__chip--3{
-  bottom:14%;
-  left:-4%;
-  animation: chipFloat 6.5s ease-in-out infinite 1s;
+.hero__notif-text {
+  font-size: 0.8rem;
+  line-height: 1.4;
+  color: rgba(18, 18, 18, 0.68);
+  margin: 0 0 14px;
 }
 
-.hero__chip--4{
-  bottom:4%;
-  right:6%;
-  animation: chipFloat 5.5s ease-in-out infinite 1.5s;
+.hero__notif-btn {
+  display: inline-flex;
+  align-items: stretch;
+  border: 2px solid var(--hx-black);
+  border-radius: 999px;
+  overflow: hidden;
+  text-decoration: none;
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--hx-cream);
+  background: var(--hx-black);
 }
 
-@keyframes chipFloat{
-  0%, 100%{ margin-top:0px; }
-  50%{ margin-top:-10px; }
+.hero__notif-btn > span:first-child {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 14px;
 }
 
-/* =========================
-   SCROLL CUE
-========================= */
-
-.hero__scroll-cue{
-  position:absolute;
-  bottom:36px;
-  left:50%;
-  transform:translateX(-50%);
-
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  gap:8px;
-
-  color: var(--hero-navy-soft);
-  text-decoration:none;
-  font-size:.75rem;
-  letter-spacing:.5px;
-  text-transform:uppercase;
-
-  z-index:2;
-
-  transition:color .3s ease;
+.hero__notif-arrow {
+  background: var(--hx-navy);
+  padding: 0 10px;
+  border-left: 2px solid var(--hx-black);
+  display: flex;
+  align-items: center;
 }
 
-.hero__scroll-cue:hover{
-  color: var(--hero-navy);
-}
+/* ================= ACCESIBILIDAD ================= */
 
-.hero__scroll-cue-mouse{
-  width:24px;
-  height:38px;
-  border:2px solid currentColor;
-  border-radius:14px;
-
-  display:flex;
-  justify-content:center;
-  padding-top:6px;
-}
-
-.hero__scroll-cue-dot{
-  width:4px;
-  height:8px;
-  border-radius:2px;
-  background:currentColor;
-
-  animation: scrollCueMove 1.6s ease-in-out infinite;
-}
-
-@keyframes scrollCueMove{
-  0%{ opacity:1; transform:translateY(0); }
-  60%{ opacity:0; transform:translateY(10px); }
-  100%{ opacity:0; transform:translateY(0); }
-}
-
-/* =========================
-   ACCESIBILIDAD
-========================= */
-
-@media (prefers-reduced-motion: reduce){
-  .hero__content,
-  .hero__role,
-  .hero__available-dot,
-  .hero__logo-wrap,
-  .hero__chip{
+@media (prefers-reduced-motion: reduce) {
+  .hero__inner,
+  .hero__seal-ring,
+  .hero__role {
     animation: none !important;
+    transition: none !important;
   }
 }
 
-/* =========================
-   RESPONSIVE
-========================= */
+/* ================= NOTEBOOKS BAJAS ================= */
 
-@media (max-width:991px){
-
-  /* El efecto sticky (Servicios tapando al Hero) se desactiva en mobile:
-     con contenido apilado verticalmente + altura fija, se recortaría.
-     Además evita el scroll-jacking pesado en equipos con menos potencia. */
-
-  .hero{
-    position:relative;
-    height:auto;
-    overflow:visible;
-  }
-
-  .hero__inner{
-    height:auto;
-
-    flex-direction:column-reverse;
-    justify-content:center;
-    text-align:center;
-    padding:120px 7% 80px;
-    gap:50px;
-
-    transform:none !important;
-    filter:none !important;
-    opacity:1 !important;
-  }
-
-  .hero__divider{
-    display:none;
-  }
-
-  .hero__buttons,
-  .hero__stats{
-    justify-content:center;
-  }
-
-  .hero__description{
-    margin-left:auto;
-    margin-right:auto;
-  }
-
-  .hero__title{
-    font-size:2.6rem;
-  }
-
-  .hero__constellation{
-    width:320px;
-    height:320px;
-  }
-
-  .hero__logo{
-    width:150px;
-    height:150px;
-  }
-
+@media (min-width: 901px) and (max-height: 700px) {
+  .hero__notch-header { height: 32px; }
+  .hero__grid { padding-top: 20px; padding-bottom: 22px; }
+  .hero__bottom-left-card { min-height: 0; padding: 22px 30px; }
+  .hero__card-description { font-size: 0.9rem; margin-bottom: 16px; }
+  .hero__seal { width: 140px; height: 140px; }
 }
 
-@media (max-width:768px){
+/* ================= TABLET / PANTALLA CHICA DE ESCRITORIO ================= */
 
-  .hero__eyebrow{
-    justify-content:center;
-    flex-wrap:wrap;
+@media (max-width: 1100px) {
+  .hero__grid { --pad-x: 36px; --col-r: 280px; }
+
+
+  .hero__seal { width: 148px; height: 148px; }
+}
+
+/* ================= CELULAR: SOLO LO IMPORTANTE =================
+   Se muestran: chip "Disponible" → título → sello → tarjeta negra con
+   descripción + botón principal. Todo lo demás se oculta. */
+
+@media (max-width: 900px) {
+  .hero {
+    position: relative;
+    height: auto;
+    overflow: visible;
   }
 
-  .hero__title{
-    font-size:2.1rem;
+  .hero__inner {
+    height: auto;
+    padding: 84px 14px 26px;
+    transition: none;
+    /* Anula el efecto de scroll: acá el Hero no queda "pegado" */
+    transform: none !important;
+    filter: none !important;
+    opacity: 1 !important;
   }
 
-  .hero__buttons{
-    flex-direction:column;
-    width:100%;
+  .hero__frame {
+    height: auto;
+    max-height: none;
+    border-radius: 26px;
   }
 
-  .hero__btn{
-    text-align:center;
-    width:100%;
+  .hero__notch-header,
+  .hero__top-right-card,
+  .hero__bottom-right-card {
+    display: none;
   }
 
-  .hero__stats{
-    gap:26px;
+  .hero__grid {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
+    gap: 16px;
+    padding: 24px 18px 22px;
   }
 
-  .hero__chip{
-    font-size:.72rem;
-    padding:7px 14px;
+  .hero__title-area {
+    grid-column: 1;
+    grid-row: auto;
   }
 
-  .hero__scroll-cue{
-    display:none;
+  .hero__chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 14px;
+    padding: 6px 12px;
+    border: 2px solid var(--hx-black);
+    border-radius: 999px;
+    font-size: 0.74rem;
+    font-weight: 700;
   }
 
+  .hero__chip-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--hx-navy);
+  }
+
+  .hero__title {
+    font-size: clamp(2rem, 9vw, 3rem);
+  }
+
+  .hero__role {
+    padding: 0 10px;
+  }
+
+  /* Sello chico, pisando la esquina de la tarjeta negra */
+  .hero__seal {
+    position: relative;
+    left: auto;
+    top: auto;
+    transform: none;
+    grid-column: 1;
+    justify-self: end;
+    width: 116px;
+    height: 116px;
+    margin: -4px 6px -56px 0;
+    /* Fondo crema: como una etiqueta pegada. Sin esto, la parte del texto
+       circular que pisa la tarjeta negra (también negro) desaparece */
+    background: var(--hx-cream);
+    border: 2px solid var(--hx-black);
+    border-radius: 50%;
+  }
+
+  .hero__title br {
+    display: none;
+  }
+
+  .hero__role-wrapper {
+    display: block;
+    width: fit-content;
+    margin: 3px 0;
+  }
+
+  .hero__seal-center {
+    width: 54px;
+    height: 54px;
+    background: var(--hx-navy);
+    font-size: 0.5rem;
+  }
+
+  .hero__seal-center::before,
+  .hero__seal-center::after,
+  .hero__seal-logo {
+    display: none;
+  }
+
+  .hero__seal-label {
+    display: block;
+  }
+
+  .hero__bottom-left-card {
+    grid-column: 1;
+    grid-row: auto;
+    display: block;
+    max-width: none;
+    min-height: 0;
+    /* Arriba deja lugar para el sello que se superpone */
+    padding: 58px 22px 22px;
+    border-radius: 22px;
+    clip-path: none;
+  }
+
+  .hero__bottom-left-content {
+    max-width: none;
+  }
+
+  .hero__card-description {
+    font-size: 0.95rem;
+    margin-bottom: 18px;
+  }
+
+  /* Botón principal a lo ancho; el secundario pasa a ser un link de texto */
+  .hero__buttons {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 6px;
+  }
+
+  .hero__btn--primary {
+    padding: 14px 20px;
+    text-align: center;
+  }
+
+  .hero__btn--secondary {
+    padding: 8px;
+    border: none;
+    text-align: center;
+    text-decoration: underline;
+    text-underline-offset: 4px;
+  }
+
+  .hero__btn--secondary:hover {
+    background: transparent;
+    color: var(--hx-cream);
+    transform: none;
+  }
 }
