@@ -88,7 +88,9 @@
   /* Tamaño masivo y alto */
   font-size: clamp(3.8rem, 6.8vw, 6.6rem);
   
-  line-height: 0.88;
+  /* AUMENTA ESTE VALOR para separar un poquito los renglones */
+  line-height: 1.1; /* Pruébalo en 1.05, 1.1 o 1.15 según te guste */
+  
   letter-spacing: -1.5px;
   color: var(--hx-black);
   margin: 0;
@@ -527,11 +529,27 @@
   }
 
   .hero__title {
-    font-size: clamp(2rem, 9vw, 3rem);
+    /* Tamaño proporcional y limpio para celulares */
+    font-size: clamp(2.4rem, 11vw, 3.6rem);
+    line-height: 0.95;
+    letter-spacing: -0.5px;
+    
+    /* RESET: Anulamos la deformación de escritorio para que ocupe todo el ancho */
+    transform: none;
+    width: 100%;
   }
 
   .hero__role {
-    padding: 0 10px;
+    display: inline-block;
+    padding: 0.02em 0.25em;
+    line-height: 0.98em;
+    white-space: nowrap;
+    border-radius: 8px;
+    background: var(--hx-navy);
+    color: var(--hx-cream);
+    
+    /* Aseguramos que el texto dinámico no se comprima de más */
+    transform: none; 
   }
 
   /* Sello chico, pisando la esquina de la tarjeta negra */
@@ -558,8 +576,8 @@
 
   .hero__role-wrapper {
     display: block;
-    width: fit-content;
-    margin: 3px 0;
+    width: 100%; /* Permite que el bloque dinámico use el ancho completo */
+    margin: 4px 0;
   }
 
   .hero__seal-center {

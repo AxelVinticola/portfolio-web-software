@@ -1,6 +1,6 @@
 import "../styles/projects.css";
 import { useEffect, useRef, useState } from "react";
-import Gallery from "./Gallery";
+import Gallery from "./gallery";
 
 import {
   FaPython,
