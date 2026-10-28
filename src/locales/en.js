@@ -78,7 +78,9 @@ const en = {
   },
 
   skills: {
-    title: "Technologies",
+    tag: "TOOLS AND TECHNOLOGIES",
+    titleMain: "TECHNOLOGIES",
+    titleSub: "I USE.",
     subtitle: "These are the tools and technologies I use to develop my projects.",
     frontend: "Frontend",
     backend: "Backend",

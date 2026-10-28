@@ -79,7 +79,9 @@ const es = {
   },
 
   skills: {
-    title: "Tecnologías",
+    tag: "HERRAMIENTAS Y TECNOLOGÍAS",
+    titleMain: "TECNOLOGÍAS",
+    titleSub: "QUE UTILIZO.",
     subtitle: "Estas son las herramientas y tecnologías con las que desarrollo mis proyectos.",
     frontend: "Frontend",
     backend: "Backend",

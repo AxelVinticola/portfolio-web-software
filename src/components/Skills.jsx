@@ -33,8 +33,11 @@ import {
 function TechChip({ icon, name }) {
   return (
     <div className="tech-chip">
-      <span className="tech-chip__icon">{icon}</span>
+      <span className="tech-chip__icon">
+        {icon || <span className="tech-chip__text-icon">C#</span>}
+      </span>
       <span className="tech-chip__name">{name}</span>
+      <div className="tech-chip__indicator"></div>
     </div>
   );
 }
@@ -92,17 +95,34 @@ function Skills({ t }) {
 
   return (
     <section id="skills" className="skills">
+      <div className="skills__container">
+        
+       {/* ENCABEZADO ESTILO REFERENCIA */}
+        <div className="skills__header-area">
+          <div className="skills__top-tag">
+            <span className="skills__tag-line"></span>
+            <span>{t.skills.tag}</span>
+          </div>
 
-      <div className="skills__header">
-        <h2>{t.skills.title}</h2>
-        <p>{t.skills.subtitle}</p>
+          <div className="skills__title-wrapper">
+            <h2 className="skills__huge-title">{t.skills.titleMain}</h2>
+            <div className="skills__banner-box">
+              <span className="skills__banner-text">{t.skills.titleSub}</span>
+            </div>
+          </div>
+
+          <div className="skills__subtitle-box">
+            <p>{t.skills.subtitle}</p>
+          </div>
+        </div>
+
+        {/* CINTAS INFINITAS (CARRUSEL INTACTO) */}
+        <div className="skills__marquees">
+          <MarqueeRow items={rowLeft} reverse={false} />
+          <MarqueeRow items={rowRight} reverse={true} />
+        </div>
+
       </div>
-
-      <div className="skills__marquees">
-        <MarqueeRow items={rowLeft} reverse={false} />
-        <MarqueeRow items={rowRight} reverse={true} />
-      </div>
-
     </section>
   );
 }

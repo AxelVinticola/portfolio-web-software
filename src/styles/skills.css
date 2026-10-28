@@ -43,10 +43,10 @@
 }
 
 .tech-marquee{
-  width:100%;
-  overflow:hidden;
+  width: 100%;
+  overflow: hidden;
 
-  /* Desvanece los bordes para que las tecnologías no "corten" de golpe */
+  /* RESTAURADO: Gradiente original más amplio para un desvanecimiento suave a los costados */
   -webkit-mask-image: linear-gradient(90deg, transparent, black 8%, black 92%, transparent);
   mask-image: linear-gradient(90deg, transparent, black 8%, black 92%, transparent);
 }
@@ -175,4 +175,262 @@
     animation:none !important;
   }
 
+}.skills {
+  --sk-black: #121212;
+  --sk-navy: #10233F;
+  --sk-cream: #F7F1E4;
+  --sk-white: #FFFFFF;
+
+  padding: 100px 0 120px;
+  background: var(--sk-cream);
+  color: var(--sk-black);
+  overflow: hidden;
+}
+
+.skills__container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 4%;
+}
+
+/* ================= HEADER ESTILO REFERENCIA ================= */
+
+.skills__header-area {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  grid-template-rows: auto auto;
+  align-items: end;
+  gap: 20px 40px;
+  margin-bottom: 60px;
+}
+
+.skills__top-tag {
+  grid-column: 1 / -1;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  font-family: "Poppins", sans-serif;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+  color: var(--sk-black);
+  text-transform: uppercase;
+}
+
+.skills__tag-line {
+  display: inline-block;
+  width: 36px;
+  height: 2px;
+  background: var(--sk-black);
+}
+
+.skills__title-wrapper {
+  grid-column: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.skills__huge-title {
+  font-family: "Anton", "Archivo Black", Impact, sans-serif;
+  text-transform: uppercase;
+  font-size: clamp(3rem, 7vw, 6.2rem);
+  line-height: 0.9;
+  letter-spacing: -0.5px;
+  color: var(--sk-black);
+  margin: 0;
+}
+
+.skills__banner-box {
+  background: var(--sk-navy);
+  color: var(--sk-cream);
+  padding: 12px 28px;
+  margin-top: 6px;
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 20px 100%, 0 calc(100% - 20px));
+}
+
+.skills__banner-text {
+  font-family: "Anton", "Archivo Black", Impact, sans-serif;
+  text-transform: uppercase;
+  font-size: clamp(2.5rem, 5.8vw, 5.4rem);
+  line-height: 0.9;
+  letter-spacing: 0.5px;
+}
+
+.skills__subtitle-box {
+  grid-column: 2;
+  max-width: 380px;
+  align-self: center;
+}
+
+.skills__subtitle-box p {
+  font-size: 0.98rem;
+  line-height: 1.5;
+  color: rgba(18, 18, 18, 0.75);
+  margin: 0;
+}
+
+/* ================= CINTAS INFINITAS (CARRUSEL) ================= */
+
+.skills__marquees{
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.tech-marquee{
+  width: 100%;
+  overflow: hidden;
+
+  /* Desvanece los bordes de forma suave */
+  -webkit-mask-image: linear-gradient(90deg, transparent, black 6%, black 94%, transparent);
+  mask-image: linear-gradient(90deg, transparent, black 6%, black 94%, transparent);
+}
+
+.tech-marquee__track{
+  display: flex;
+  width: max-content;
+  gap: 16px;
+
+  animation: marqueeScroll 46s linear infinite;
+}
+
+.tech-marquee__track--reverse{
+  animation-direction: reverse;
+}
+
+.tech-marquee:hover .tech-marquee__track{
+  animation-play-state: paused;
+}
+
+@keyframes marqueeScroll{
+  from{ transform: translateX(0); }
+  to{ transform: translateX(-50%); }
+}
+
+/* ================= TARJETA DE TECNOLOGÍA (CHIP) ================= */
+
+.tech-chip{
+  flex-shrink: 0;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+
+  min-width: 115px;
+  min-height: 110px;
+  padding: 18px 12px;
+
+  /* Estilo de esquinas biseladas de la referencia */
+  border-radius: 14px;
+  border: 1.5px solid rgba(18, 18, 18, 0.18);
+  background: var(--sk-cream);
+  color: var(--sk-black);
+
+  clip-path: polygon(0 0, 100% 0, 100% calc(100% - 12px), calc(100% - 12px) 100%, 0 100%);
+  transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease, background .25s ease;
+}
+
+.tech-chip:hover{
+  border-color: var(--sk-navy);
+  background: var(--sk-navy);
+  color: var(--sk-cream);
+  transform: translateY(-4px);
+  box-shadow: 0 14px 28px rgba(16, 35, 63, 0.18);
+}
+
+.tech-chip:hover .tech-chip__icon{
+  color: var(--sk-cream);
+}
+
+.tech-chip:hover .tech-chip__name{
+  color: var(--sk-cream);
+}
+
+.tech-chip:hover .tech-chip__indicator{
+  background: var(--sk-cream);
+}
+
+.tech-chip__icon{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  height: 32px;
+  font-size: 1.7rem;
+
+  color: var(--sk-black);
+  transition: color .25s ease;
+}
+
+.tech-chip__text-icon {
+  font-size: 1.1rem;
+  font-weight: 800;
+  font-family: monospace;
+}
+
+.tech-chip__name{
+  font-size: .74rem;
+  font-weight: 700;
+  color: var(--sk-black);
+  white-space: nowrap;
+  transition: color .25s ease;
+}
+
+.tech-chip__indicator {
+  width: 12px;
+  height: 2px;
+  background: rgba(18, 18, 18, 0.25);
+  border-radius: 1px;
+  transition: background .25s ease;
+}
+
+/* ================= RESPONSIVE ================= */
+
+@media (max-width: 900px){
+  .skills__header-area {
+    grid-template-columns: 1fr;
+    gap: 16px;
+    margin-bottom: 40px;
+  }
+
+  .skills__subtitle-box {
+    grid-column: 1;
+    max-width: 100%;
+  }
+
+  .skills{
+    padding: 70px 0;
+  }
+
+  .tech-chip{
+    min-width: 95px;
+    min-height: 95px;
+    padding: 14px 8px;
+  }
+
+  .tech-chip__icon{
+    font-size: 1.4rem;
+    height: 26px;
+  }
+
+  .tech-chip__name{
+    font-size: .7rem;
+  }
+}
+
+/* ================= ACCESIBILIDAD ================= */
+
+@media (prefers-reduced-motion: reduce){
+  .tech-marquee{
+    overflow-x: auto;
+    -webkit-mask-image: none;
+    mask-image: none;
+  }
+
+  .tech-marquee__track{
+    animation: none !important;
+  }
 }
