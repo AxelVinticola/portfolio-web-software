@@ -155,40 +155,11 @@ const en = {
   },
 
   testimonials: {
-    title: "Education",
-    subtitle: "Academic background and professional preparation.",
-
-    main: {
-      type: "MAIN EDUCATION",
-      title: "Higher Technician in Computer Systems Analysis",
-      institution: "Instituto Superior Doctor Ramón Carrillo",
-      description:
-        "Higher education focused on software development, systems analysis and design, databases, web development, and mobile applications.",
-
-      tag1: "Programming",
-      tag2: "Web Development",
-      tag3: "Mobile Development",
-      tag4: "Databases",
-      tag5: "Systems Analysis",
-      tag6: "Cybersecurity",
-      tag7: "Teleinformatics",
-      tag8: "Professional Practice",
-    },
-
-    secondary: {
-      type: "COMPLEMENTARY EDUCATION",
-      title: "Bachelor's Degree in Criminalistics",
-      institution: "Universidad Católica de Salta (UCASAL)",
-      description:
-        "Education focused on analysis and investigation, providing a strong foundation in critical thinking, data analysis, complex problem solving, and the application of structured methodologies — skills that complement my technical profile as a Systems Analyst.",
-
-      tag1: "Analytical thinking",
-      tag2: "Problem solving",
-      tag3: "Research methodology",
-      tag4: "Logical-deductive reasoning",
-      tag5: "Technical report writing",
-      tag6: "Attention to detail",
-    },
+    tag: "TESTIMONIALS & REVIEWS",
+    titleMain: "WHAT MY",
+    titleSub: "CLIENTS SAY.",
+    subtitle: "Real experiences that back up every line of code and every deployed project.",
+    roleFallback: "Role, Company",
   },
 
   contact: {

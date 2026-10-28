@@ -1,17 +1,7 @@
 import "../styles/testimonials.css";
 import { useState } from "react";
 
-// ============================================================
-// TESTIMONIOS — reemplazá cada uno por el comentario real de tu
-// cliente. Cada objeto acepta:
-//  - quote: la cita textual del cliente
-//  - name: nombre del cliente
-//  - role: cargo + empresa (ej: "Dueña, Yume Sakura Salon")
-//  - avatar: ruta a una foto (opcional). Si la dejás en null, o si
-//    la imagen no carga, se muestran las iniciales del nombre.
-//  - rating: de 1 a 5 estrellas
-// ============================================================
-
+// Los nombres (name) y citas (quote) se mantienen sin traducir tal como pediste
 const testimonials = [
   { quote: "Escribí acá el comentario real de tu cliente.", name: "Cliente 1", role: "Cargo, Empresa", avatar: null, rating: 5 },
   { quote: "Escribí acá el comentario real de tu cliente.", name: "Cliente 2", role: "Cargo, Empresa", avatar: null, rating: 5 },
@@ -41,8 +31,7 @@ function Stars({ rating }) {
   );
 }
 
-function TestimonialCard({ item }) {
-
+function TestimonialCard({ item, fallbackRole }) {
   const [avatarFailed, setAvatarFailed] = useState(false);
 
   const initials = item.name
@@ -54,13 +43,14 @@ function TestimonialCard({ item }) {
 
   return (
     <div className="testimonial-card">
-
-      <Stars rating={item.rating} />
+      <div className="testimonial-card__top">
+        <Stars rating={item.rating} />
+        <span className="testimonial-card__quote-icon" aria-hidden="true">”</span>
+      </div>
 
       <p className="testimonial-card__quote">“{item.quote}”</p>
 
       <div className="testimonial-card__author">
-
         <div className="testimonial-card__avatar">
           {item.avatar && !avatarFailed ? (
             <img
@@ -76,20 +66,16 @@ function TestimonialCard({ item }) {
 
         <div className="testimonial-card__info">
           <strong>{item.name}</strong>
-          <span>{item.role}</span>
+          <span>{item.role === "Cargo, Empresa" && fallbackRole ? fallbackRole : item.role}</span>
         </div>
-
       </div>
 
+      <div className="testimonial-card__indicator"></div>
     </div>
   );
 }
 
-// Una fila que se mueve hacia la izquierda o la derecha en loop
-// infinito — el array se duplica para que el loop sea perfecto
-// (misma técnica que las demás cintas del sitio). Se pausa entera
-// al pasar el cursor.
-function TestimonialRow({ items, direction }) {
+function TestimonialRow({ items, direction, fallbackRole }) {
   const doubled = [...items, ...items];
 
   return (
@@ -98,7 +84,7 @@ function TestimonialRow({ items, direction }) {
         className={`testimonial-row__track ${direction === "right" ? "testimonial-row__track--reverse" : ""}`}
       >
         {doubled.map((item, index) => (
-          <TestimonialCard key={index} item={item} />
+          <TestimonialCard key={index} item={item} fallbackRole={fallbackRole} />
         ))}
       </div>
     </div>
@@ -106,24 +92,39 @@ function TestimonialRow({ items, direction }) {
 }
 
 function Testimonials({ t }) {
-
-  // Reparte los testimonios entre las 2 filas (pares/impares)
   const rowA = testimonials.filter((_, i) => i % 2 === 0);
   const rowB = testimonials.filter((_, i) => i % 2 === 1);
 
   return (
     <section id="testimonials" className="testimonials">
+      <div className="testimonials__container">
+        
+        {/* ENCABEZADO CONECTADO A TRADUCCIÓN */}
+        <div className="testimonials__header-area">
+          <div className="testimonials__top-tag">
+            <span className="testimonials__tag-line"></span>
+            <span>{t?.testimonials?.tag || "TESTIMONIOS Y OPINIONES"}</span>
+          </div>
 
-      <div className="testimonials__header">
-        <h2>{t?.testimonials?.title || "Lo que dicen mis clientes"}</h2>
-        <p>{t?.testimonials?.subtitle || "Proyectos reales, resultados reales."}</p>
+          <div className="testimonials__title-wrapper">
+            <h2 className="testimonials__huge-title">{t?.testimonials?.titleMain || "LO QUE DICEN"}</h2>
+            <div className="testimonials__banner-box">
+              <span className="testimonials__banner-text">{t?.testimonials?.titleSub || "MIS CLIENTES."}</span>
+            </div>
+          </div>
+
+          <div className="testimonials__subtitle-box">
+            <p>{t?.testimonials?.subtitle || "Experiencias reales que respaldan cada línea de código y cada proyecto desplegado."}</p>
+          </div>
+        </div>
+
+        {/* CINTAS INFINITAS */}
+        <div className="testimonials__rows">
+          <TestimonialRow items={rowA} direction="right" fallbackRole={t?.testimonials?.roleFallback} />
+          <TestimonialRow items={rowB} direction="left" fallbackRole={t?.testimonials?.roleFallback} />
+        </div>
+
       </div>
-
-      <div className="testimonials__rows">
-        <TestimonialRow items={rowA} direction="right" />
-        <TestimonialRow items={rowB} direction="left" />
-      </div>
-
     </section>
   );
 }

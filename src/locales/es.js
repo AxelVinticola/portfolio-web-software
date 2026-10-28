@@ -156,41 +156,12 @@ const es = {
   },
 
 testimonials: {
-    title: "Educación",
-    subtitle: "Formación académica y preparación profesional.",
-
-    main: {
-      type: "FORMACIÓN PRINCIPAL",
-      title: "Técnico Superior en Análisis de Sistemas Informáticos",
-      institution: "Instituto Superior del Milagro N.º 8207",
-      description:
-        "Formación superior enfocada en el desarrollo de software, análisis y diseño de sistemas, bases de datos, desarrollo web y aplicaciones móviles.",
-
-      tag1: "Programación",
-      tag2: "Desarrollo Web",
-      tag3: "Desarrollo Móvil",
-      tag4: "Bases de Datos",
-      tag5: "Análisis de Sistemas",
-      tag6: "Seguridad Informática",
-      tag7: "Teleinformática",
-      tag8: "Práctica Profesional",
-    },
-
-    secondary: {
-      type: "FORMACIÓN COMPLEMENTARIA",
-      title: "Licenciatura en Criminalística",
-      institution: "Universidad Católica de Salta (UCASAL)",
-      description:
-        "Formación orientada al análisis e investigación, que aportó una base sólida en pensamiento crítico, análisis de datos, resolución de problemas complejos y aplicación de metodologías estructuradas — habilidades que complementan mi perfil técnico como Analista de Sistemas.",
-
-      tag1: "Pensamiento analítico",
-      tag2: "Resolución de problemas",
-      tag3: "Metodología de investigación",
-      tag4: "Razonamiento lógico-deductivo",
-      tag5: "Elaboración de informes técnicos",
-      tag6: "Atención a los detalles",
-    },
-  },
+  tag: "TESTIMONIOS Y OPINIONES",
+  titleMain: "LO QUE DICEN",
+  titleSub: "MIS CLIENTES.",
+  subtitle: "Experiencias reales que respaldan cada línea de código y cada proyecto desplegado.",
+  roleFallback: "Cargo, Empresa",
+},
 
   contact: {
     title: "Contacto",
