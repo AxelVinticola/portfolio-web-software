@@ -21,6 +21,7 @@
   padding: 70px 6% 70px;
 }
 
+
 /* =========================
    SPOTLIGHT DE FONDO
 ========================= */
@@ -37,6 +38,7 @@
 
   pointer-events:none;
 }
+
 
 .services__grid--spotlight{
   opacity:.5;
@@ -55,38 +57,11 @@
   transition: opacity .3s ease;
 }
 
+
 .about-services:not(:hover) .services__grid--spotlight{
   opacity:0;
 }
 
-/* =========================
-   ENCABEZADO (compacto)
-========================= */
-
-.services__header{
-  position:relative;
-  z-index:2;
-
-  text-align:center;
-  max-width:600px;
-  margin:0 auto 50px;
-}
-
-.services__header h2{
-  font-family:"Fraunces", Georgia, serif;
-  font-weight:600;
-  font-style:italic;
-  font-size:2.6rem;
-
-  color: var(--svc-text);
-
-  margin-bottom:12px;
-}
-
-.services__header p{
-  color: var(--svc-text-soft);
-  font-size:1.02rem;
-}
 
 /* =========================
    GRILLA DE SERVICIOS
@@ -105,130 +80,6 @@
   margin:0 auto 60px;
 }
 
-.service-card{
-  background: var(--svc-navy);
-  border:1px solid var(--svc-line);
-  border-radius:18px;
-
-  padding:26px;
-
-  display:flex;
-  flex-direction:column;
-  gap:16px;
-
-  position:relative;
-
-  opacity:0;
-
-  transition: opacity .7s cubic-bezier(0.16, 1, 0.3, 1),
-              transform .7s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-/* Entran desde su lado: izquierda desde la izquierda, derecha desde la derecha */
-
-.service-card--left{
-  transform: translateX(-90px);
-}
-
-.service-card--right{
-  transform: translateX(90px);
-}
-
-.service-card.is-visible{
-  opacity:1;
-  transform: translateX(0);
-}
-
-.service-card:hover{
-  border-color: rgba(247, 241, 228, 0.3);
-}
-
-.service-card.is-visible:hover{
-  transform: translateY(-6px);
-  box-shadow: 0 20px 40px rgba(6, 13, 24, 0.4);
-}
-
-/* Glow que sigue al cursor dentro de la tarjeta */
-
-.service-card__glow{
-  position:absolute;
-  inset:0;
-
-  border-radius:18px;
-
-  background: radial-gradient(
-    circle 180px at var(--card-x, 50%) var(--card-y, 50%),
-    rgba(247, 241, 228, 0.10),
-    transparent 70%
-  );
-
-  opacity:0;
-
-  transition: opacity .3s ease;
-
-  pointer-events:none;
-}
-
-.service-card:hover .service-card__glow{
-  opacity:1;
-}
-
-/* Link "Ver ejemplo" hacia Proyectos */
-
-.service-card__link{
-  align-self:flex-start;
-
-  color: var(--svc-text);
-  text-decoration:none;
-
-  font-size:.88rem;
-  font-weight:600;
-
-  opacity:.5;
-
-  transition: opacity .3s ease, transform .3s ease;
-}
-
-.service-card__link:hover{
-  opacity:1;
-  transform: translateX(4px);
-}
-
-.service-card__number{
-  position:absolute;
-  top:20px;
-  right:24px;
-
-  font-family:"Fraunces", Georgia, serif;
-  font-size:.95rem;
-
-  color: var(--svc-text-soft);
-}
-
-.service-card__visual{
-  display:flex;
-  justify-content:center;
-
-  height:190px;
-
-  perspective:1000px;
-}
-
-.service-card__title{
-  font-family:"Fraunces", Georgia, serif;
-  font-weight:600;
-  font-style:italic;
-  font-size:1.5rem;
-
-  color: var(--svc-text);
-}
-
-.service-card__desc{
-  font-size:.98rem;
-  line-height:1.65;
-
-  color: var(--svc-text-soft);
-}
 
 /* =========================
    MOCKUPS — base compartida
@@ -250,6 +101,7 @@
   transition: transform .2s ease-out;
 }
 
+
 .mockup__bar{
   display:flex;
   align-items:center;
@@ -261,12 +113,14 @@
   border-bottom:1px solid var(--svc-line);
 }
 
+
 .mockup__dot{
   width:8px;
   height:8px;
   border-radius:50%;
   background: var(--svc-text-soft);
 }
+
 
 .mockup__url{
   margin-left:10px;
@@ -279,6 +133,7 @@
   background: rgba(247, 241, 228, 0.12);
 }
 
+
 /* Browser mockup: abstracción de una landing */
 
 .mockup__body{
@@ -289,6 +144,7 @@
   gap:10px;
 }
 
+
 .mockup__nav{
   height:6px;
   width:40%;
@@ -298,6 +154,7 @@
   background: rgba(247, 241, 228, 0.18);
 }
 
+
 .mockup__hero-block{
   height:44px;
 
@@ -306,10 +163,12 @@
   background: linear-gradient(135deg, rgba(247,241,228,0.16), rgba(247,241,228,0.05));
 }
 
+
 .mockup__cards{
   display:flex;
   gap:8px;
 }
+
 
 .mockup__cards span{
   flex:1;
@@ -320,10 +179,12 @@
   background: rgba(247, 241, 228, 0.08);
 }
 
+
 .mockup__body{
   position:relative;
   overflow:hidden;
 }
+
 
 .mockup__glare{
   position:absolute;
@@ -345,16 +206,19 @@
   animation: glareSweep .9s ease forwards;
 }
 
+
 @keyframes glareSweep{
   from{ left:-60%; }
   to{ left:130%; }
 }
+
 
 /* Terminal mockup: tipeo en loop */
 
 .mockup__bar--dark{
   background: rgba(0,0,0,.25);
 }
+
 
 .mockup__terminal-body{
   padding:18px 14px;
@@ -367,10 +231,12 @@
   color: var(--svc-text);
 }
 
+
 .mockup__prompt{
   color: var(--svc-text-soft);
   margin-right:8px;
 }
+
 
 .mockup__cursor{
   display:inline-block;
@@ -385,10 +251,12 @@
   animation: cursorBlink 1s step-end infinite;
 }
 
+
 @keyframes cursorBlink{
   0%, 100%{ opacity:1; }
   50%{ opacity:0; }
 }
+
 
 .mockup__hover-line{
   margin-top:8px;
@@ -396,6 +264,7 @@
   overflow:hidden;
   white-space:nowrap;
 }
+
 
 .mockup__typed-fast{
   display:inline-block;
@@ -411,9 +280,11 @@
   animation: typeReveal .35s steps(15) forwards .1s;
 }
 
+
 @keyframes typeReveal{
   to{ width:100%; }
 }
+
 
 /* Chart mockup: barras que crecen */
 
@@ -425,6 +296,7 @@
   height:110px;
   padding:16px 14px;
 }
+
 
 .chart-bar{
   flex:1;
@@ -438,10 +310,6 @@
   transition: height .9s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.service-card.is-visible .chart-bar,
-.chart-bar.is-growing{
-  height: var(--target);
-}
 
 /* Phone mockup */
 
@@ -452,6 +320,7 @@
   border:none;
   box-shadow:none;
 }
+
 
 .mockup__phone-frame{
   position:relative;
@@ -467,6 +336,7 @@
   box-shadow: 0 16px 36px rgba(6, 13, 24, 0.5);
 }
 
+
 .mockup__phone-notch{
   position:absolute;
   top:0;
@@ -481,6 +351,7 @@
 
   z-index:2;
 }
+
 
 .mockup__phone-screen{
   position:relative;
@@ -499,12 +370,14 @@
   gap:8px;
 }
 
+
 .mockup__phone-row{
   height:18px;
   border-radius:6px;
 
   background: rgba(247, 241, 228, 0.08);
 }
+
 
 .mockup__phone-notification{
   display:block;
@@ -526,10 +399,12 @@
   animation: notifySlide .4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
+
 @keyframes notifySlide{
   from{ opacity:0; transform:translateY(-14px); }
   to{ opacity:1; transform:translateY(0); }
 }
+
 
 .mockup__phone-row--active{
   background: rgba(247, 241, 228, 0.18);
@@ -537,10 +412,12 @@
   animation: phoneRowPulse 2.6s ease-in-out infinite;
 }
 
+
 @keyframes phoneRowPulse{
   0%, 100%{ background: rgba(247, 241, 228, 0.14); }
   50%{ background: rgba(247, 241, 228, 0.26); }
 }
+
 
 .mockup__phone-badge{
   position:absolute;
@@ -556,80 +433,468 @@
   animation: phoneBadgePing 2.4s ease-out infinite;
 }
 
+
 @keyframes phoneBadgePing{
   0%{ box-shadow:0 0 0 0 rgba(247, 241, 228, 0.5); }
   70%{ box-shadow:0 0 0 9px rgba(247, 241, 228, 0); }
   100%{ box-shadow:0 0 0 0 rgba(247, 241, 228, 0); }
 }
+/* =====================================================
+   ESTILO HERO — Servicios
+   Mismo lenguaje que el Hero, el Nav y Skills: Anton, contornos
+   gruesos, esquinas cortadas, píldoras con sombra dura.
+   (Sobre fondo oscuro los trazos son crema en vez de negros.)
+===================================================== */
 
-/* =========================
-   CIERRE CON CTA
-========================= */
+.about-services{
+  --svc-black: #121212;
+  --svc-display: "Anton", "Archivo Black", Impact, sans-serif;
+
+  /* Más aire arriba: el nav fijo queda libre */
+  padding: 96px 6% 70px;
+}
+
+/* ---------- ENCABEZADO (igual que Skills) ---------- */
+
+.services__header{
+  position: relative;
+  z-index: 2;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 40px;
+
+  max-width: 1300px;
+  margin: 0 auto 56px;
+}
+
+.services__tag{
+  display: flex;
+  align-items: center;
+  gap: 14px;
+
+  margin-bottom: 18px;
+
+  font-size: .82rem;
+  font-weight: 600;
+  letter-spacing: .28em;
+  text-transform: uppercase;
+
+  color: var(--svc-text);
+}
+
+.services__tag::before{
+  content: "";
+  width: 44px;
+  height: 2px;
+  background: var(--svc-text);
+}
+
+.services__title{
+  font-family: var(--svc-display);
+  font-weight: 400;
+  font-style: normal;
+  text-transform: uppercase;
+
+  font-size: clamp(3rem, 8.4vw, 8rem);
+  line-height: .95;
+
+  margin: 0;
+  color: var(--svc-text);
+}
+
+.services__title-main{
+  display: block;
+}
+
+/* Recuadro con esquina cortada (el de Skills, pero invertido:
+   crema con texto negro, porque el fondo es oscuro) */
+.services__title-sub{
+  display: inline-block;
+
+  margin-top: .06em;
+  padding: .02em .22em 0;
+
+  background: var(--svc-text);
+  color: var(--svc-black);
+
+  clip-path: polygon(0 0, 100% 0, 100% 100%, .28em 100%, 0 calc(100% - .28em));
+}
+
+.services__subtitle{
+  flex-shrink: 0;
+  max-width: 340px;
+
+  font-size: 1.05rem;
+  line-height: 1.7;
+
+  color: var(--svc-text-soft);
+}
+
+/* ---------- TARJETAS ---------- */
+
+.services__cards{
+  gap: 28px;
+}
+
+/* Capa de afuera = el trazo crema; capa de adentro = el relleno navy.
+   Las dos tienen la esquina cortada, así la diagonal también tiene borde. */
+.service-card{
+  position: relative;
+
+  display: flex;
+  flex-direction: column;
+
+  padding: 2.5px;
+
+  background: var(--svc-text);
+  border-radius: 22px;
+  clip-path: polygon(0 0, calc(100% - 44px) 0, 100% 44px, 100% 100%, 0 100%);
+
+  opacity: 0;
+
+  transition: opacity .7s cubic-bezier(0.16, 1, 0.3, 1),
+              transform .7s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Entran desde su lado: izquierda desde la izquierda, derecha desde la derecha */
+.service-card--left{ transform: translateX(-90px); }
+.service-card--right{ transform: translateX(90px); }
+
+.service-card.is-visible{
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.service-card.is-visible:hover{
+  transform: translateY(-6px);
+}
+
+.service-card__inner{
+  position: relative;
+
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+
+  padding: 26px;
+
+  background: var(--svc-navy);
+  border-radius: 19.5px;
+  clip-path: polygon(0 0, calc(100% - 42.5px) 0, 100% 42.5px, 100% 100%, 0 100%);
+}
+
+/* Resplandor que sigue al cursor dentro de la tarjeta */
+.service-card__glow{
+  position: absolute;
+  inset: 0;
+
+  background: radial-gradient(
+    circle 180px at var(--card-x, 50%) var(--card-y, 50%),
+    rgba(247, 241, 228, 0.09),
+    transparent 70%
+  );
+
+  opacity: 0;
+  transition: opacity .3s ease;
+  pointer-events: none;
+}
+
+.service-card:hover .service-card__glow{
+  opacity: 1;
+}
+
+.service-card__number{
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  z-index: 3;
+
+  padding: 3px 11px;
+
+  border-radius: 999px;
+  background: var(--svc-text);
+  color: var(--svc-black);
+
+  font-family: var(--svc-display);
+  font-size: .95rem;
+  letter-spacing: .06em;
+  line-height: 1.3;
+}
+
+.service-card__visual{
+  display: flex;
+  justify-content: center;
+
+  height: 190px;
+
+  perspective: 1000px;
+}
+
+.service-card__title{
+  font-family: var(--svc-display);
+  font-weight: 400;
+  font-style: normal;
+  text-transform: uppercase;
+
+  font-size: 2rem;
+  line-height: 1;
+  letter-spacing: .02em;
+
+  margin: 0;
+  color: var(--svc-text);
+}
+
+.service-card__desc{
+  font-size: .98rem;
+  line-height: 1.65;
+
+  color: var(--svc-text-soft);
+}
+
+/* Botón que "se hunde": la sombra dura se achica al pasar y al presionar */
+.service-card__link{
+  align-self: flex-start;
+
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+
+  margin-top: auto;
+  padding: 8px 16px;
+
+  border: 2px solid var(--svc-text);
+  border-radius: 999px;
+
+  color: var(--svc-text);
+  font-size: .8rem;
+  font-weight: 700;
+  text-decoration: none;
+
+  box-shadow: 3px 3px 0 rgba(247, 241, 228, 0.3);
+
+  transition: background .25s ease, color .25s ease,
+              transform .15s ease, box-shadow .15s ease;
+}
+
+.service-card__link:hover{
+  background: var(--svc-text);
+  color: var(--svc-black);
+
+  transform: translate(1.5px, 1.5px);
+  box-shadow: 1.5px 1.5px 0 rgba(247, 241, 228, 0.3);
+}
+
+.service-card__link:active{
+  transform: translate(3px, 3px);
+  box-shadow: 0 0 0 rgba(247, 241, 228, 0.3);
+}
+
+/* Reaparece la regla que hace crecer las barras del gráfico */
+.service-card.is-visible .chart-bar,
+.chart-bar.is-growing{
+  height: var(--target);
+}
+
+/* ---------- MOCKUPS: piel nueva (ventanas crema con trazo negro) ---------- */
+
+.mockup{
+  background: var(--svc-text);
+  border: 2px solid var(--svc-black);
+  border-radius: 12px;
+  box-shadow: 4px 4px 0 var(--svc-black);
+}
+
+.mockup__bar{
+  background: var(--svc-text);
+  border-bottom: 2px solid var(--svc-black);
+}
+
+.mockup__dot{
+  background: var(--svc-black);
+}
+
+.mockup__url{
+  background: rgba(18, 18, 18, 0.14);
+}
+
+.mockup__nav{
+  background: rgba(18, 18, 18, 0.3);
+}
+
+.mockup__hero-block{
+  background: linear-gradient(135deg, rgba(18, 18, 18, 0.22), rgba(18, 18, 18, 0.06));
+}
+
+.mockup__cards span{
+  background: rgba(18, 18, 18, 0.12);
+}
+
+.mockup__glare{
+  background: linear-gradient(100deg, transparent, rgba(255, 255, 255, 0.65), transparent);
+}
+
+/* Terminal: oscura, como la tarjeta negra del Hero */
+.mockup--terminal{
+  background: var(--svc-black);
+  border-color: var(--svc-text);
+  box-shadow: 4px 4px 0 rgba(247, 241, 228, 0.3);
+}
+
+.mockup--terminal .mockup__bar{
+  background: var(--svc-black);
+  border-bottom: 2px solid rgba(247, 241, 228, 0.25);
+}
+
+.mockup--terminal .mockup__dot{
+  background: var(--svc-text);
+}
+
+/* Gráfico: ventana crema con barras negras */
+.mockup--chart .mockup__bar{
+  background: var(--svc-text);
+}
+
+.chart-bar{
+  background: linear-gradient(180deg, var(--svc-black), var(--svc-navy));
+}
+
+/* Celular: cuerpo negro con pantalla crema */
+.mockup.mockup--phone{
+  background: transparent;
+  border: none;
+  box-shadow: none;
+}
+
+.mockup__phone-frame{
+  background: var(--svc-black);
+  border-color: var(--svc-black);
+  box-shadow: 4px 4px 0 rgba(247, 241, 228, 0.3);
+}
+
+.mockup__phone-notch{
+  background: var(--svc-black);
+}
+
+.mockup__phone-screen{
+  background: var(--svc-text);
+}
+
+.mockup__phone-row{
+  background: rgba(18, 18, 18, 0.12);
+}
+
+.mockup__phone-row--active{
+  background: rgba(18, 18, 18, 0.22);
+}
+
+@keyframes phoneRowPulse{
+  0%, 100%{ background: rgba(18, 18, 18, 0.16); }
+  50%{ background: rgba(18, 18, 18, 0.32); }
+}
+
+.mockup__phone-notification{
+  background: var(--svc-black);
+  color: var(--svc-text);
+}
+
+.mockup__phone-badge{
+  background: var(--svc-navy);
+}
+
+@keyframes phoneBadgePing{
+  0%{ box-shadow: 0 0 0 0 rgba(16, 35, 63, 0.55); }
+  70%{ box-shadow: 0 0 0 9px rgba(16, 35, 63, 0); }
+  100%{ box-shadow: 0 0 0 0 rgba(16, 35, 63, 0); }
+}
+
+/* ---------- CIERRE ---------- */
 
 .services__closing{
-  position:relative;
-  z-index:2;
+  position: relative;
+  z-index: 2;
 
-  text-align:center;
+  max-width: 720px;
+  margin: 70px auto 0;
+  padding-top: 70px;
 
-  max-width:520px;
-  margin:60px auto 0;
+  text-align: center;
 
-  padding-top:80px;
-  border-top:1px solid var(--svc-line);
+  border-top: 2px solid rgba(247, 241, 228, 0.15);
 }
 
 .services__closing h3{
-  font-family:"Fraunces", Georgia, serif;
-  font-weight:600;
-  font-size:2.2rem;
+  font-family: var(--svc-display);
+  font-weight: 400;
+  font-style: normal;
+  text-transform: uppercase;
 
+  font-size: clamp(2.4rem, 6vw, 4.4rem);
+  line-height: 1;
+
+  margin: 0 0 18px;
   color: var(--svc-text);
-
-  margin-bottom:16px;
 }
 
 .services__closing p{
+  max-width: 460px;
+  margin: 0 auto 34px;
+
+  line-height: 1.7;
   color: var(--svc-text-soft);
-  margin-bottom:34px;
 }
 
 .services__cta{
-  display:inline-block;
+  display: inline-block;
 
-  padding:16px 34px;
+  padding: 16px 34px;
 
-  border-radius:8px;
+  border: 2px solid var(--svc-text);
+  border-radius: 999px;
 
   background: var(--svc-text);
-  color: var(--svc-bg);
+  color: var(--svc-black);
 
-  font-weight:600;
-  text-decoration:none;
+  font-weight: 700;
+  text-decoration: none;
 
-  transition: transform .25s ease, box-shadow .3s ease;
+  box-shadow: 5px 5px 0 rgba(247, 241, 228, 0.3);
 
-  box-shadow: 0 12px 30px rgba(247, 241, 228, 0.12);
+  transition: transform .15s ease, box-shadow .15s ease;
 }
 
 .services__cta:hover{
-  transform: translateY(-3px);
-  box-shadow: 0 16px 36px rgba(247, 241, 228, 0.18);
+  transform: translate(2.5px, 2.5px);
+  box-shadow: 2.5px 2.5px 0 rgba(247, 241, 228, 0.3);
 }
 
-/* =========================
-   RESPONSIVE
-========================= */
+.services__cta:active{
+  transform: translate(5px, 5px);
+  box-shadow: 0 0 0 rgba(247, 241, 228, 0.3);
+}
 
-@media (max-width:900px){
+/* ---------- RESPONSIVE ---------- */
+
+@media (max-width: 900px){
+
+  .services__header{
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 22px;
+  }
+
+  .services__subtitle{
+    max-width: none;
+  }
 
   .services__cards{
     grid-template-columns: 1fr;
-    max-width:460px;
+    max-width: 480px;
   }
 
-  /* En una sola columna ya no hay "lado", entran todas desde abajo */
-
+  /* En una sola columna ya no hay "lado": entran desde abajo */
   .service-card--left,
   .service-card--right{
     transform: translateY(40px);
@@ -638,32 +903,26 @@
   .service-card.is-visible{
     transform: translateY(0);
   }
-
 }
 
-@media (max-width:768px){
+@media (max-width: 768px){
 
   .about-services{
-    padding:55px 6% 50px;
-    border-radius:28px 28px 0 0;
+    padding: 84px 6% 50px;
+    border-radius: 28px 28px 0 0;
   }
 
   .services__header{
-    margin-bottom:40px;
+    margin-bottom: 40px;
   }
 
-  .services__header h2{
-    font-size:2.1rem;
+  .services__title{
+    font-size: clamp(2.6rem, 13vw, 4rem);
   }
 
   .services__closing{
-    padding-top:50px;
+    padding-top: 50px;
   }
-
-  .services__closing h3{
-    font-size:1.7rem;
-  }
-
 }
 
 @media (prefers-reduced-motion: reduce){
@@ -676,13 +935,23 @@
   .mockup__phone-notification,
   .mockup__glare,
   .mockup__typed-fast,
-  .mockup__cursor{
-    transition:none !important;
-    animation:none !important;
-    opacity:1 !important;
-    transform:none !important;
+  .mockup__cursor,
+  .service-card__link,
+  .services__cta{
+    transition: none !important;
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
     height: var(--target, auto) !important;
-    width:auto !important;
+    width: auto !important;
   }
+}
 
+/* En celular el mockup ocupa casi todo el ancho de la tarjeta:
+   se baja el contenido para que la etiqueta numerada no lo pise */
+@media (max-width: 560px){
+
+  .service-card__inner{
+    padding-top: 60px;
+  }
 }

@@ -236,6 +236,8 @@ function ServiceCard({ index, side, isRevealed, title, description, renderVisual
       onMouseLeave={() => setIsHovered(false)}
     >
 
+      <div className="service-card__inner">
+
       <span className="service-card__glow" />
 
       <div className="service-card__number">
@@ -253,6 +255,8 @@ function ServiceCard({ index, side, isRevealed, title, description, renderVisual
       <a href="#projects" className="service-card__link">
         {t.about.viewExample} →
       </a>
+
+    </div>
 
     </div>
   );
@@ -291,6 +295,13 @@ function About({ t }) {
     el.style.setProperty("--spot-x", `${e.clientX - rect.left}px`);
     el.style.setProperty("--spot-y", `${e.clientY - rect.top}px`);
   };
+
+  // Título en dos partes, como en Skills: la última palabra va en el recuadro.
+  // Si agregás titleMain / titleSub al locale, se usan; si no, se deriva de title.
+  const titleWords = (t.about.title || "").trim().split(" ");
+  const derivedSub = titleWords.pop();
+  const titleMain = t.about.titleMain || titleWords.join(" ");
+  const titleSub = t.about.titleSub || derivedSub;
 
   const services = [
     {
@@ -335,8 +346,14 @@ function About({ t }) {
       <div className="services__grid services__grid--spotlight" />
 
       <div className="services__header">
-        <h2>{t.about.title}</h2>
-        <p>{t.about.subtitle}</p>
+        <div className="services__header-main">
+          {t.about.tag && <span className="services__tag">{t.about.tag}</span>}
+          <h2 className="services__title">
+            <span className="services__title-main">{titleMain}</span>
+            <span className="services__title-sub">{titleSub}</span>
+          </h2>
+        </div>
+        <p className="services__subtitle">{t.about.subtitle}</p>
       </div>
 
       <div className="services__cards" ref={gridRef}>
