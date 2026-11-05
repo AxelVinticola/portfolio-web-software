@@ -77,6 +77,8 @@ function FeaturedProjectCard({ id, data, t, isExpanded, isClosing, side, covered
       onClick={!isExpanded ? () => onToggle(id) : undefined}
     >
 
+      <div className="project-card__inner">
+
       {isExpanded && (
         <button
           className="project-card__close"
@@ -163,6 +165,8 @@ function FeaturedProjectCard({ id, data, t, isExpanded, isClosing, side, covered
           </div>
 
         </div>
+
+      </div>
 
       </div>
 
@@ -408,12 +412,25 @@ function Projects({ t }) {
     },
   };
 
+  // Título en dos partes, como en Skills y Servicios: la última palabra va en
+  // el recuadro. Si agregás titleMain / titleSub al locale, se usan.
+  const titleWords = (t.projects.title || "").trim().split(" ");
+  const derivedSub = titleWords.pop();
+  const titleMain = t.projects.titleMain || titleWords.join(" ");
+  const titleSub = t.projects.titleSub || derivedSub;
+
   return (
     <section id="projects" className="projects">
 
-      <div className="section-title">
-        <h2>{t.projects.title}</h2>
-        <p>{t.projects.subtitle}</p>
+      <div className="projects__header">
+        <div className="projects__header-main">
+          {t.projects.tag && <span className="projects__tag">{t.projects.tag}</span>}
+          <h2 className="projects__title">
+            <span className="projects__title-main">{titleMain}</span>
+            <span className="projects__title-sub">{titleSub}</span>
+          </h2>
+        </div>
+        <p className="projects__subtitle">{t.projects.subtitle}</p>
       </div>
 
       <div
