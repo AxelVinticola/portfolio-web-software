@@ -2,38 +2,39 @@
 
   --ctc-bg: #060D18;
   --ctc-navy: #10233F;
-  --ctc-text: #F7F1E4;
-  --ctc-text-soft: rgba(247, 241, 228, 0.6);
-  --ctc-line: rgba(247, 241, 228, 0.15);
+  --ctc-cream: #F7F1E4;
+  --ctc-black: #121212;
+  --ctc-soft: rgba(247, 241, 228, 0.6);
+  --ctc-display: "Anton", "Archivo Black", Impact, sans-serif;
 
-  position:relative;
-  overflow:hidden;
+  position: relative;
+  overflow: hidden;
 
-  padding:120px 8%;
+  padding: 110px 6% 0;
 
   background: var(--ctc-bg);
-  color: var(--ctc-text);
+  color: var(--ctc-cream);
 }
 
 /* =========================
-   SPOTLIGHT DE FONDO
+   FONDO: puntitos + spotlight que sigue al cursor
 ========================= */
 
 .contact__grid{
-  position:absolute;
-  inset:0;
-  z-index:0;
+  position: absolute;
+  inset: 0;
+  z-index: 0;
 
   background-image: radial-gradient(rgba(247, 241, 228, 0.5) 1px, transparent 1px);
   background-size: 30px 30px;
 
-  opacity:.04;
+  opacity: .04;
 
-  pointer-events:none;
+  pointer-events: none;
 }
 
 .contact__grid--spotlight{
-  opacity:.5;
+  opacity: .5;
 
   -webkit-mask-image: radial-gradient(
     circle 260px at var(--spot-x, 50%) var(--spot-y, 50%),
@@ -50,372 +51,833 @@
 }
 
 .contact:not(:hover) .contact__grid--spotlight{
-  opacity:0;
+  opacity: 0;
+}
+
+/* Rombos que flotan despacio (los mismos del Nav y del sello) */
+.contact__spark{
+  position: absolute;
+  z-index: 1;
+
+  width: 16px;
+  height: 16px;
+
+  border: 2px solid rgba(247, 241, 228, 0.35);
+
+  transform: rotate(45deg);
+  pointer-events: none;
+
+  animation: sparkDrift 9s ease-in-out infinite alternate;
+}
+
+.contact__spark--1{ top: 14%; left: 3%; }
+.contact__spark--2{ top: 30%; right: 2.5%; width: 11px; height: 11px; background: rgba(247, 241, 228, 0.28); border: none; animation-duration: 12s; }
+.contact__spark--3{ bottom: 26%; left: 1.5%; width: 12px; height: 12px; background: rgba(247, 241, 228, 0.22); border: none; animation-duration: 11s; animation-delay: -4s; }
+.contact__spark--4{ bottom: 34%; right: 4%; width: 20px; height: 20px; animation-duration: 14s; animation-delay: -6s; }
+
+@keyframes sparkDrift{
+  from{ transform: translateY(-14px) rotate(45deg); }
+  to{ transform: translateY(14px) rotate(225deg); }
 }
 
 /* =========================
-   ENCABEZADO
+   ENCABEZADO (mismo lenguaje que Skills, Servicios y Proyectos)
 ========================= */
 
-.contact .section-title{
-  position:relative;
-  z-index:2;
+.contact__header{
+  position: relative;
+  z-index: 2;
 
-  text-align:center;
-  max-width:600px;
-  margin:0 auto 70px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 40px;
+
+  max-width: 1300px;
+  margin: 0 auto 56px;
 }
 
-.contact .section-title h2{
-  font-family:"Fraunces", Georgia, serif;
-  font-weight:600;
-  font-style:italic;
-  font-size:2.6rem;
+.contact__tag{
+  display: flex;
+  align-items: center;
+  gap: 14px;
 
-  color: var(--ctc-text);
+  margin-bottom: 18px;
 
-  margin-bottom:12px;
+  font-size: .82rem;
+  font-weight: 600;
+  letter-spacing: .28em;
+  text-transform: uppercase;
+
+  color: var(--ctc-cream);
 }
 
-.contact .section-title p{
-  color: var(--ctc-text-soft);
-  font-size:1.02rem;
+.contact__tag::before{
+  content: "";
+  width: 44px;
+  height: 2px;
+  background: var(--ctc-cream);
 }
 
-/* =========================
-   LAYOUT GENERAL
-========================= */
+.contact__title{
+  font-family: var(--ctc-display);
+  font-weight: 400;
+  font-style: normal;
+  text-transform: uppercase;
 
-.contact__container{
-  position:relative;
-  z-index:2;
+  font-size: clamp(3rem, 7.6vw, 7.2rem);
+  line-height: .95;
 
-  max-width:1100px;
-  margin:0 auto;
-
-  display:grid;
-  grid-template-columns: 1.3fr 0.9fr;
-  gap:60px;
+  margin: 0;
+  color: var(--ctc-cream);
 }
 
-/* =========================
-   COLUMNA DEL FORMULARIO
-========================= */
+.contact__title-main{
+  display: block;
 
-.contact__form-col h3{
-  font-family:"Fraunces", Georgia, serif;
-  font-weight:600;
-  font-style:italic;
-  font-size:2rem;
+  opacity: 0;
+  transform: translateY(40px);
 
-  color: var(--ctc-text);
+  transition: opacity .8s ease, transform .9s cubic-bezier(0.16, 1, 0.3, 1);
+}
 
-  margin-bottom:16px;
+/* Recuadro crema de esquina cortada. Al entrar, se "descubre" de izquierda
+   a derecha (mismas 5 puntas que la forma final, por eso se anima suave) */
+.contact__title-sub{
+  display: inline-block;
+
+  margin-top: .06em;
+  padding: .02em .22em 0;
+
+  background: var(--ctc-cream);
+  color: var(--ctc-black);
+
+  clip-path: polygon(0 0, 0 0, 0 100%, 0 100%, 0 calc(100% - .28em));
+
+  transition: clip-path .9s cubic-bezier(0.65, 0, 0.35, 1) .25s;
+}
+
+.contact.is-visible .contact__title-main{
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.contact.is-visible .contact__title-sub{
+  clip-path: polygon(0 0, 100% 0, 100% 100%, .28em 100%, 0 calc(100% - .28em));
 }
 
 .contact__intro{
-  color: var(--ctc-text-soft);
-  line-height:1.7;
-  font-size:1.02rem;
+  flex-shrink: 0;
+  max-width: 360px;
 
-  margin-bottom:34px;
+  font-size: 1.02rem;
+  line-height: 1.7;
 
-  max-width:480px;
-}
-
-.contact__form{
-  display:flex;
-  flex-direction:column;
-  gap:20px;
-}
-
-.contact__field{
-  display:flex;
-  flex-direction:column;
-  gap:8px;
-
-  opacity:0;
-  transform: translateY(16px);
-
-  transition: opacity .6s ease, transform .6s ease;
-}
-
-.contact.is-visible .contact__field{
-  opacity:1;
-  transform:translateY(0);
-}
-
-.contact__field:nth-child(1){ transition-delay: .05s; }
-.contact__field:nth-child(2){ transition-delay: .15s; }
-.contact__field:nth-child(3){ transition-delay: .25s; }
-
-.contact__field label{
-  font-size:.82rem;
-  font-weight:600;
-  letter-spacing:.3px;
-  text-transform:uppercase;
-
-  color: var(--ctc-text-soft);
-}
-
-.contact__field input,
-.contact__field select,
-.contact__field textarea{
-  padding:13px 16px;
-
-  border-radius:8px;
-  border:1px solid var(--ctc-line);
-
-  background: rgba(247, 241, 228, 0.04);
-  color: var(--ctc-text);
-
-  font-size:.95rem;
-  font-family: inherit;
-
-  resize:vertical;
-
-  transition: border-color .3s ease, background .3s ease, box-shadow .3s ease;
-}
-
-.contact__field input::placeholder,
-.contact__field textarea::placeholder{
-  color: rgba(247, 241, 228, 0.35);
-}
-
-.contact__field input:focus,
-.contact__field select:focus,
-.contact__field textarea:focus{
-  outline:none;
-
-  border-color: var(--ctc-text);
-  background: rgba(247, 241, 228, 0.07);
-
-  box-shadow: 0 0 0 3px rgba(247, 241, 228, 0.08);
-}
-
-.contact__field select{
-  cursor:pointer;
-}
-
-.contact__field select option{
-  background: var(--ctc-navy);
-  color: var(--ctc-text);
-}
-
-.contact__submit{
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-  gap:10px;
-
-  align-self:flex-start;
-
-  margin-top:6px;
-
-  padding:15px 30px;
-
-  border:none;
-  border-radius:8px;
-
-  background: var(--ctc-text);
-  color: var(--ctc-bg);
-
-  font-size:.95rem;
-  font-weight:700;
-
-  cursor:pointer;
-
-  box-shadow: 0 12px 28px rgba(247, 241, 228, 0.12);
-
-  opacity:0;
-  transform: translateY(16px);
-
-  transition: opacity .6s ease .35s, transform .6s ease .35s,
-              box-shadow .25s ease, background .25s ease;
-}
-
-.contact.is-visible .contact__submit{
-  opacity:1;
-  transform:translateY(0);
-}
-
-.contact__submit:hover{
-  transform: translateY(-3px);
-  box-shadow: 0 16px 34px rgba(247, 241, 228, 0.2);
-}
-
-.contact__submit svg{
-  font-size:1.2rem;
-}
-
-.contact__sending{
-  display:inline-block;
-
-  margin-top:-6px;
-
-  font-size:.85rem;
-  color: var(--ctc-text-soft);
-
-  opacity:0;
-
-  transition: opacity .3s ease;
-}
-
-.contact__sending.is-visible{
-  opacity:1;
+  color: var(--ctc-soft);
 }
 
 /* =========================
-   COLUMNA DE CONTACTO DIRECTO
+   LAYOUT: formulario + contacto directo
 ========================= */
 
-.contact__direct-col{
-  display:flex;
-  flex-direction:column;
-  gap:16px;
+.contact__container{
+  position: relative;
+  z-index: 2;
 
-  padding-left:40px;
-  border-left:1px solid var(--ctc-line);
+  display: grid;
+  grid-template-columns: 1.35fr 0.85fr;
+  gap: 44px;
+  align-items: start;
+
+  max-width: 1300px;
+  margin: 0 auto;
 }
 
-.contact__direct-col h4{
-  font-size:.82rem;
-  font-weight:700;
-  letter-spacing:.4px;
-  text-transform:uppercase;
+/* =========================
+   FORMULARIO: ventana crema
+========================= */
 
-  color: var(--ctc-text-soft);
+.contact__card{
+  background: var(--ctc-cream);
+  color: var(--ctc-black);
 
-  margin-bottom:4px;
+  border: 2.5px solid var(--ctc-black);
+  border-radius: 22px;
+
+  /* Sombra dura "fantasma": no tapa, solo da profundidad sobre el fondo */
+  box-shadow: 10px 10px 0 rgba(247, 241, 228, 0.18);
+
+  opacity: 0;
+  transform: translateY(46px);
+
+  transition: opacity .8s ease .15s, transform .9s cubic-bezier(0.16, 1, 0.3, 1) .15s;
+}
+
+.contact.is-visible .contact__card{
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.contact__card-bar{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: 13px 20px;
+
+  border-bottom: 2.5px solid var(--ctc-black);
+}
+
+.contact__dots{
+  display: flex;
+  gap: 7px;
+}
+
+.contact__dots span{
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--ctc-black);
+}
+
+.contact__card-tag{
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+
+  font-family: var(--ctc-display);
+  font-size: .95rem;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
+.contact__card-body{
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+
+  padding: 30px 30px 32px;
+}
+
+/* Cada campo entra escalonado */
+.contact__field{
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+
+  opacity: 0;
+  transform: translateY(18px);
+
+  transition: opacity .6s ease, transform .6s cubic-bezier(0.16, 1, 0.3, 1);
+  transition-delay: calc(var(--i, 0) * .1s + .45s);
+}
+
+.contact.is-visible .contact__field{
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.contact__label{
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  font-family: var(--ctc-display);
+  font-weight: 400;
+  font-size: .98rem;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+
+  color: var(--ctc-black);
+}
+
+.contact__label::before{
+  content: "";
+  width: 20px;
+  height: 2px;
+  background: var(--ctc-black);
+}
+
+/* Al enfocar, el campo "se levanta" con una sombra dura */
+.contact__input{
+  width: 100%;
+
+  padding: 14px 16px;
+
+  border: 2px solid var(--ctc-black);
+  border-radius: 14px;
+
+  background: #FFFFFF;
+  color: var(--ctc-black);
+
+  font-family: inherit;
+  font-size: .98rem;
+
+  transition: transform .15s ease, box-shadow .15s ease;
+}
+
+.contact__input::placeholder{
+  color: rgba(18, 18, 18, 0.4);
+}
+
+.contact__input:focus{
+  outline: none;
+
+  transform: translate(-2px, -2px);
+  box-shadow: 4px 4px 0 var(--ctc-black);
+}
+
+.contact__input--area{
+  resize: vertical;
+  min-height: 110px;
+}
+
+/* ---------- Chips de tipo de proyecto ---------- */
+
+.contact__chips{
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.contact__chip{
+  padding: 9px 17px;
+
+  border: 2px solid var(--ctc-black);
+  border-radius: 999px;
+
+  background: transparent;
+  color: var(--ctc-black);
+
+  font-family: inherit;
+  font-size: .85rem;
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition: transform .15s ease, box-shadow .15s ease,
+              background .2s ease, color .2s ease;
+}
+
+.contact__chip:hover{
+  transform: translate(-1px, -1px);
+  box-shadow: 3px 3px 0 var(--ctc-black);
+}
+
+.contact__chip:active{
+  transform: translate(1px, 1px);
+  box-shadow: 0 0 0 var(--ctc-black);
+}
+
+.contact__chip.is-selected{
+  background: var(--ctc-navy);
+  color: var(--ctc-cream);
+
+  box-shadow: 3px 3px 0 var(--ctc-black);
+}
+
+.contact__chip:focus-visible,
+.contact__submit:focus-visible{
+  outline: 3px solid var(--ctc-navy);
+  outline-offset: 3px;
+}
+
+/* ---------- Botón de envío ---------- */
+
+.contact__field--submit{
+  flex-direction: row;
+  align-items: center;
+  gap: 14px;
+}
+
+.contact__submit{
+  position: relative;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+
+  padding: 16px 32px;
+
+  border: 2px solid var(--ctc-black);
+  border-radius: 999px;
+
+  background: var(--ctc-black);
+  color: var(--ctc-cream);
+
+  font-family: inherit;
+  font-size: .98rem;
+  font-weight: 700;
+
+  cursor: pointer;
+
+  box-shadow: 5px 5px 0 var(--ctc-navy);
+
+  transition: transform .15s ease, box-shadow .15s ease, background .3s ease;
+}
+
+.contact__submit svg{
+  font-size: 1.25rem;
+}
+
+.contact__submit:hover{
+  transform: translate(2.5px, 2.5px);
+  box-shadow: 2.5px 2.5px 0 var(--ctc-navy);
+}
+
+.contact__submit:active{
+  transform: translate(5px, 5px);
+  box-shadow: 0 0 0 var(--ctc-navy);
+}
+
+/* Al enviar: el botón se pone navy, una barra corre debajo del texto y
+   salen disparados rombos hacia todos lados */
+.contact__submit.is-sent{
+  background: var(--ctc-navy);
+}
+
+.contact__submit.is-sent::after{
+  content: "";
+  position: absolute;
+  left: 22px;
+  right: 22px;
+  bottom: 7px;
+
+  height: 3px;
+  border-radius: 2px;
+  background: var(--ctc-cream);
+
+  transform-origin: left;
+  animation: sendBar 4s linear forwards;
+}
+
+@keyframes sendBar{
+  from{ transform: scaleX(0); }
+  to{ transform: scaleX(1); }
+}
+
+.contact__burst{
+  position: absolute;
+  left: 50%;
+  top: 50%;
+
+  width: 0;
+  height: 0;
+
+  pointer-events: none;
+}
+
+.contact__burst i{
+  position: absolute;
+  left: -5px;
+  top: -5px;
+
+  width: 10px;
+  height: 10px;
+
+  /* Negros: se ven tanto sobre el botón navy como sobre la tarjeta crema */
+  background: var(--ctc-black);
+  opacity: 0;
+}
+
+.contact__submit.is-sent .contact__burst i{
+  animation: burst 1s cubic-bezier(0.2, 0.8, 0.3, 1) forwards;
+}
+
+@keyframes burst{
+  0%{
+    opacity: 1;
+    transform: rotate(var(--a)) translateX(36px) rotate(45deg) scale(1);
+  }
+  65%{
+    opacity: 1;
+  }
+  100%{
+    opacity: 0;
+    transform: rotate(var(--a)) translateX(160px) rotate(225deg) scale(.5);
+  }
+}
+
+.contact__sr{
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+/* =========================
+   CONTACTO DIRECTO
+========================= */
+
+.contact__side{
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* "Disponible": el puntito late como una señal en vivo */
+.contact__status{
+  align-self: flex-start;
+
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+
+  padding: 9px 18px;
+
+  border-radius: 999px;
+
+  background: var(--ctc-cream);
+  color: var(--ctc-black);
+
+  font-size: .8rem;
+  font-weight: 700;
+}
+
+.contact__status-dot{
+  width: 9px;
+  height: 9px;
+
+  border-radius: 50%;
+  background: var(--ctc-navy);
+
+  animation: statusPing 2s ease-out infinite;
+}
+
+@keyframes statusPing{
+  0%{ box-shadow: 0 0 0 0 rgba(16, 35, 63, 0.55); }
+  70%{ box-shadow: 0 0 0 9px rgba(16, 35, 63, 0); }
+  100%{ box-shadow: 0 0 0 0 rgba(16, 35, 63, 0); }
 }
 
 .contact__location{
-  display:flex;
-  align-items:center;
-  gap:10px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
 
-  color: var(--ctc-text-soft);
-  font-size:.92rem;
-
-  margin-bottom:8px;
+  font-size: .92rem;
+  color: var(--ctc-soft);
 }
 
-.contact__item{
-  display:flex;
-  align-items:center;
-  gap:14px;
+.contact__side-title{
+  display: flex;
+  align-items: center;
+  gap: 10px;
 
-  padding:14px 16px;
+  margin: 14px 0 2px;
 
-  border-radius:10px;
-  border:1px solid var(--ctc-line);
+  font-family: var(--ctc-display);
+  font-weight: 400;
+  font-size: 1.05rem;
+  letter-spacing: .08em;
+  text-transform: uppercase;
 
-  color: var(--ctc-text);
-  text-decoration:none;
-
-  font-size:1.2rem;
-
-  transition: border-color .3s ease, background .3s ease, transform .3s ease;
+  color: var(--ctc-cream);
 }
 
-.contact__item:hover{
-  border-color: rgba(247, 241, 228, 0.35);
-  background: rgba(247, 241, 228, 0.04);
-  transform: translateX(4px);
+.contact__side-title::before{
+  content: "";
+  width: 22px;
+  height: 2px;
+  background: var(--ctc-cream);
 }
 
-.contact__item div{
-  display:flex;
-  flex-direction:column;
+/* Tickets: al pasar el mouse se invierten y "se hunden" */
+.contact__ticket{
+  display: flex;
+  align-items: center;
+  gap: 14px;
+
+  padding: 14px 18px;
+
+  border: 2px solid var(--ctc-cream);
+  border-radius: 18px;
+
+  color: var(--ctc-cream);
+  text-decoration: none;
+
+  box-shadow: 5px 5px 0 rgba(247, 241, 228, 0.22);
+
+  transition: transform .15s ease, box-shadow .15s ease,
+              background .25s ease, color .25s ease;
 }
 
-.contact__item span{
-  font-size:.74rem;
-  text-transform:uppercase;
-  letter-spacing:.3px;
+.contact__ticket:hover{
+  background: var(--ctc-cream);
+  color: var(--ctc-black);
 
-  color: var(--ctc-text-soft);
+  transform: translate(2.5px, 2.5px);
+  box-shadow: 2.5px 2.5px 0 rgba(247, 241, 228, 0.22);
 }
 
-.contact__item strong{
-  font-size:.9rem;
-  font-weight:600;
+.contact__ticket:active{
+  transform: translate(5px, 5px);
+  box-shadow: 0 0 0 rgba(247, 241, 228, 0.22);
+}
+
+.contact__ticket-icon{
+  flex-shrink: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 42px;
+  height: 42px;
+
+  border-radius: 50%;
+
+  background: var(--ctc-cream);
+  color: var(--ctc-black);
+
+  font-size: 1.15rem;
+
+  transition: background .25s ease, color .25s ease;
+}
+
+.contact__ticket:hover .contact__ticket-icon{
+  background: var(--ctc-black);
+  color: var(--ctc-cream);
+}
+
+.contact__ticket-text{
+  flex: 1;
+  min-width: 0;
+
+  display: flex;
+  flex-direction: column;
+}
+
+.contact__ticket-text > span{
+  font-size: .72rem;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+
+  opacity: .65;
+}
+
+.contact__ticket-text strong{
+  font-size: .92rem;
+  font-weight: 600;
+
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.contact__ticket-arrow{
+  font-size: 1.2rem;
+
+  transition: transform .25s ease;
+}
+
+.contact__ticket:hover .contact__ticket-arrow{
+  transform: translate(3px, -3px);
+}
+
+/* Los tickets entran desde la derecha, escalonados. Se usa animation con
+   "backwards" para que después el hover siga funcionando normal. */
+.contact:not(.is-visible) .contact__ticket{
+  opacity: 0;
+}
+
+.contact.is-visible .contact__ticket{
+  animation: ticketIn .7s cubic-bezier(0.16, 1, 0.3, 1) backwards;
+  animation-delay: calc(var(--i, 0) * .12s + .5s);
+}
+
+@keyframes ticketIn{
+  from{ opacity: 0; transform: translateX(44px); }
+  to{ opacity: 1; transform: translateX(0); }
 }
 
 .contact__socials{
-  display:flex;
-  gap:14px;
+  display: flex;
+  gap: 14px;
 
-  margin-top:8px;
+  margin-top: 6px;
 }
 
 .contact__socials a{
-  display:flex;
-  align-items:center;
-  justify-content:center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
-  width:42px;
-  height:42px;
+  width: 46px;
+  height: 46px;
 
-  border-radius:50%;
-  border:1px solid var(--ctc-line);
+  border: 2px solid var(--ctc-cream);
+  border-radius: 50%;
 
-  color: var(--ctc-text);
-  font-size:1.1rem;
+  color: var(--ctc-cream);
+  font-size: 1.15rem;
 
-  transition: border-color .3s ease, transform .3s ease, background .3s ease;
+  box-shadow: 4px 4px 0 rgba(247, 241, 228, 0.22);
+
+  transition: transform .15s ease, box-shadow .15s ease,
+              background .25s ease, color .25s ease;
 }
 
 .contact__socials a:hover{
-  border-color: rgba(247, 241, 228, 0.35);
-  background: rgba(247, 241, 228, 0.06);
-  transform: translateY(-3px);
+  background: var(--ctc-cream);
+  color: var(--ctc-black);
+
+  transform: translate(2px, 2px);
+  box-shadow: 2px 2px 0 rgba(247, 241, 228, 0.22);
+}
+
+/* =========================
+   CINTA INCLINADA
+========================= */
+
+.contact__marquee{
+  position: relative;
+  z-index: 3;
+
+  margin: 110px -6% 34px;
+  padding: 14px 0;
+
+  background: var(--ctc-cream);
+  color: var(--ctc-black);
+
+  transform: rotate(-1.6deg);
+
+  overflow: hidden;
+}
+
+.contact__marquee-track{
+  display: flex;
+  width: max-content;
+
+  animation: marqueeMove 40s linear infinite;
+}
+
+.contact__marquee:hover .contact__marquee-track{
+  animation-play-state: paused;
+}
+
+.contact__marquee-half{
+  display: flex;
+  flex-shrink: 0;
+}
+
+.contact__marquee-item{
+  display: inline-flex;
+  align-items: center;
+  gap: 28px;
+
+  padding-right: 28px;
+
+  font-family: var(--ctc-display);
+  font-size: clamp(1.5rem, 2.8vw, 2.3rem);
+  letter-spacing: .04em;
+  line-height: 1.1;
+  white-space: nowrap;
+}
+
+.contact__marquee-item i{
+  width: 12px;
+  height: 12px;
+
+  background: var(--ctc-navy);
+  transform: rotate(45deg);
+}
+
+@keyframes marqueeMove{
+  from{ transform: translateX(0); }
+  to{ transform: translateX(-50%); }
 }
 
 /* =========================
    RESPONSIVE
 ========================= */
 
-@media (max-width:900px){
+@media (max-width: 1000px){
+
+  .contact__header{
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 22px;
+  }
+
+  .contact__intro{
+    max-width: none;
+  }
 
   .contact__container{
-    grid-template-columns:1fr;
-    gap:50px;
+    grid-template-columns: 1fr;
+    gap: 50px;
   }
 
-  .contact__direct-col{
-    padding-left:0;
-    padding-top:40px;
-
-    border-left:none;
-    border-top:1px solid var(--ctc-line);
+  .contact__side{
+    max-width: 560px;
   }
-
 }
 
-@media (max-width:768px){
+@media (max-width: 768px){
 
   .contact{
-    padding:80px 6%;
+    padding: 84px 6% 0;
   }
 
-  .contact .section-title h2{
-    font-size:2.1rem;
+  .contact__header{
+    margin-bottom: 40px;
   }
 
-  .contact__form-col h3{
-    font-size:1.6rem;
+  .contact__title{
+    font-size: clamp(2.6rem, 12vw, 4rem);
   }
 
+  .contact__card{
+    box-shadow: 6px 6px 0 rgba(247, 241, 228, 0.18);
+  }
+
+  .contact__card-body{
+    gap: 22px;
+    padding: 22px 18px 24px;
+  }
+
+  .contact__field--submit{
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .contact__submit{
+    width: 100%;
+  }
+
+  .contact__marquee{
+    margin-top: 80px;
+  }
 }
 
 @media (prefers-reduced-motion: reduce){
 
-  .contact__field,
-  .contact__submit{
-    transition:none !important;
-    opacity:1 !important;
-    transform:none !important;
+  .contact__spark,
+  .contact__marquee-track,
+  .contact__status-dot,
+  .contact__submit.is-sent::after,
+  .contact__submit.is-sent .contact__burst i,
+  .contact.is-visible .contact__ticket{
+    animation: none !important;
   }
 
+  .contact__title-main,
+  .contact__title-sub,
+  .contact__card,
+  .contact__field{
+    transition: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  .contact__title-sub{
+    clip-path: polygon(0 0, 100% 0, 100% 100%, .28em 100%, 0 calc(100% - .28em)) !important;
+  }
+
+  .contact:not(.is-visible) .contact__ticket{
+    opacity: 1;
+  }
 }

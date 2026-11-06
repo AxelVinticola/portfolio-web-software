@@ -315,15 +315,34 @@
   gap: 14px;
 }
 
+/* Botones: gesto "relleno que sube". La jerarquía se ve en reposo (principal
+   sólido, secundario con contorno) y al pasar el mouse cada uno se invierte
+   con una capa que sube desde abajo. */
 .hero__btn {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+
   padding: 12px 26px;
   border-radius: 999px;
-  border: 2px solid var(--hx-black);
+  border: 2px solid var(--hx-cream);
   font-size: 0.88rem;
   font-weight: 700;
   white-space: nowrap;
   text-decoration: none;
-  transition: transform 0.25s ease, background 0.25s ease, color 0.25s ease;
+
+  transition: color 0.3s ease, transform 0.15s ease;
+}
+
+/* La capa que sube queda detrás del texto y delante del fondo del botón */
+.hero__btn::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+
+  transform: translateY(101%);
+  transition: transform 0.3s cubic-bezier(0.65, 0, 0.35, 1);
 }
 
 .hero__btn--primary {
@@ -331,20 +350,41 @@
   color: var(--hx-black);
 }
 
-.hero__btn--primary:hover {
-  transform: translateY(-2px);
+.hero__btn--primary::before {
+  background: var(--hx-black);
 }
 
 .hero__btn--secondary {
   background: transparent;
   color: var(--hx-cream);
-  border-color: var(--hx-cream);
 }
 
-.hero__btn--secondary:hover {
+.hero__btn--secondary::before {
   background: var(--hx-cream);
-  color: var(--hx-black);
-  transform: translateY(-2px);
+}
+
+/* Solo con mouse: en pantallas táctiles el hover queda "pegado" tras el toque */
+@media (hover: hover) {
+  .hero__btn:hover::before {
+    transform: translateY(0);
+  }
+
+  .hero__btn--primary:hover {
+    color: var(--hx-cream);
+  }
+
+  .hero__btn--secondary:hover {
+    color: var(--hx-black);
+  }
+}
+
+.hero__btn:active {
+  transform: scale(0.97);
+}
+
+.hero__btn:focus-visible {
+  outline: 3px solid var(--hx-cream);
+  outline-offset: 3px;
 }
 
 /* 5. TARJETA DE NOTIFICACIÓN (misma técnica de contorno en dos capas) */
@@ -636,6 +676,10 @@
     text-align: center;
     text-decoration: underline;
     text-underline-offset: 4px;
+  }
+
+  .hero__btn--secondary::before {
+    display: none;
   }
 
   .hero__btn--secondary:hover {
