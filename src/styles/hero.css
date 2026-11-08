@@ -152,6 +152,7 @@
   background: var(--hx-black);
   border-radius: 24px;
   clip-path: polygon(70px 0, 100% 0, 100% 100%, 0 100%, 0 70px);
+  transition: transform 0.15s ease-out;
 }
 
 .hero__top-right-inner {
@@ -164,55 +165,197 @@
   clip-path: polygon(68.5px 0, 100% 0, 100% 100%, 0 100%, 0 68.5px);
 }
 
-.hero__top-right-placeholder {
+/* Teaser de proyectos (la tarjeta alta) */
+.hero__teaser {
+  position: relative;
   flex: 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 20px 20px 50px 28px;
+  min-width: 0;
+  display: block;
+  overflow: hidden;
+
+  /* Permite usar "cqw" (ancho del teaser) en la animación del desplazamiento */
+  container-type: size;
+
+  color: inherit;
+  text-decoration: none;
 }
 
-.hero__accent-img {
-  max-width: 70%;
-  max-height: 55%;
-  object-fit: contain;
+.hero__teaser-slide {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 0.9s ease;
 }
 
+.hero__teaser-slide.is-active {
+  opacity: 1;
+}
+
+/* La captura es apaisada y la tarjeta vertical: se muestra a todo el alto y se
+   desplaza despacio de lado a lado para recorrerla entera */
+.hero__teaser-pan {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: max-content;
+
+  animation: heroPan 16s ease-in-out infinite alternate;
+  will-change: transform;
+}
+
+.hero__teaser-pan img {
+  display: block;
+  height: 100%;
+  width: auto;
+  max-width: none;
+}
+
+@keyframes heroPan {
+  from { transform: translateX(0); }
+  to { transform: translateX(calc(-100% + 100cqw)); }
+}
+
+/* Nombre del proyecto: sube cuando cambia, como la palabra rotativa */
+.hero__teaser-chip {
+  position: absolute;
+  left: 14px;
+  bottom: 62px;
+  z-index: 2;
+
+  display: block;
+  height: 24px;
+  overflow: hidden;
+
+  border-radius: 999px;
+  background: var(--hx-cream);
+}
+
+.hero__teaser-chip span {
+  display: block;
+  padding: 0 12px;
+  line-height: 24px;
+
+  font-family: "Anton", "Archivo Black", Impact, sans-serif;
+  font-size: 0.8rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  white-space: nowrap;
+
+  color: var(--hx-black);
+
+  animation: heroChip 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes heroChip {
+  from { transform: translateY(100%); }
+  to { transform: none; }
+}
+
+/* Brillo que cruza la tarjeta al pasar el mouse (como en los mockups de Servicios) */
+.hero__teaser-glare {
+  position: absolute;
+  top: -50%;
+  left: -60%;
+  width: 38%;
+  height: 200%;
+
+  background: rgba(255, 255, 255, 0.22);
+  transform: rotate(20deg);
+  pointer-events: none;
+
+  transition: left 0.8s ease;
+}
+
+.hero__top-right-card:hover .hero__teaser-glare {
+  left: 130%;
+}
+
+/* Franja negra: cinta vertical con tus servicios (la misma idea de la cinta
+   del Contacto, pero en vertical) */
 .hero__vertical-accent {
+  position: relative;
+  flex-shrink: 0;
   width: 36px;
+  overflow: hidden;
+
   background: var(--hx-black);
   border-left: 2px solid var(--hx-cream);
+  color: var(--hx-cream);
+}
+
+.hero__vt {
+  position: absolute;
+  inset: 0;
+
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0, #000 12%, #000 80%, transparent 100%);
+  mask-image: linear-gradient(to bottom, transparent 0, #000 12%, #000 80%, transparent 100%);
+}
+
+.hero__vt-track {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-between;
-  padding: 20px 0 58px;
-  font-weight: 800;
-  color: var(--hx-cream);
+
+  animation: heroVt 26s linear infinite;
+}
+
+.hero__vt-half {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.hero__vt-item {
+  writing-mode: vertical-rl;
+
+  font-family: "Anton", "Archivo Black", Impact, sans-serif;
+  font-size: 0.95rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+/* Rombo separador (el mismo de los adornos del Nav y del sello) */
+.hero__vt-dot {
+  display: block;
+  flex: none;
+
+  width: 7px;
+  height: 7px;
+  margin: 16px 0;
+
+  background: var(--hx-cream);
+  transform: rotate(45deg);
+}
+
+@keyframes heroVt {
+  to { transform: translateY(-50%); }
 }
 
 /* 3. SELLO: ahora ocupa el hueco entre la tarjeta negra y la columna
    derecha, en vez de flotar encima del título */
 .hero__seal {
   position: absolute;
-  left: calc(100% - var(--pad-x) - var(--col-r) - 44px);
+  left: calc(100% - var(--pad-x) - var(--col-r) - 62px);
   top: 52%;
   transform: translate(-50%, -50%);
-  width: 176px;
-  height: 176px;
+  width: 212px;
+  height: 212px;
   z-index: 10;
+
+  /* El área de hover sigue la forma circular, no el cuadrado */
+  border-radius: 50%;
 }
 
 .hero__seal-ring {
   width: 100%;
   height: 100%;
   fill: var(--hx-black);
-  animation: sealSpin 16s linear infinite;
-}
 
-@keyframes sealSpin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+  /* El giro lo maneja Hero.jsx (acelera suave al pasar el mouse) */
+  will-change: transform;
 }
 
 .hero__seal-center {
@@ -271,12 +414,12 @@
   font-weight: 600;
 }
 
-.hero__seal-center:hover {
+.hero__seal:hover .hero__seal-center {
   transform: scale(1.08);
   background: var(--hx-navy);
 }
 
-.hero__seal-center:hover .hero__seal-logo {
+.hero__seal:hover .hero__seal-logo {
   background-color: var(--hx-cream);
 }
 
@@ -433,10 +576,40 @@
 }
 
 .hero__notif-title {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+
   font-size: 0.88rem;
   font-weight: 800;
   margin: 0 0 6px;
   color: var(--hx-black);
+}
+
+/* El puntito late como una señal "en vivo" */
+.hero__notif-dot {
+  flex: none;
+
+  width: 9px;
+  height: 9px;
+
+  border-radius: 50%;
+  background: var(--hx-navy);
+
+  animation: heroPing 2s ease-out infinite;
+}
+
+@keyframes heroPing {
+  0% { box-shadow: 0 0 0 0 rgba(16, 35, 63, 0.55); }
+  70% { box-shadow: 0 0 0 9px rgba(16, 35, 63, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(16, 35, 63, 0); }
+}
+
+/* Dígitos del mismo ancho: el reloj no "tiembla" al cambiar los segundos */
+.hero__clock {
+  display: inline-block;
+  min-width: 7ch;
+  font-variant-numeric: tabular-nums;
 }
 
 .hero__notif-text {
@@ -479,7 +652,14 @@
 @media (prefers-reduced-motion: reduce) {
   .hero__inner,
   .hero__seal-ring,
-  .hero__role {
+  .hero__role,
+  .hero__teaser-pan,
+  .hero__teaser-slide,
+  .hero__teaser-chip span,
+  .hero__teaser-glare,
+  .hero__top-right-card,
+  .hero__vt-track,
+  .hero__notif-dot {
     animation: none !important;
     transition: none !important;
   }
@@ -492,7 +672,7 @@
   .hero__grid { padding-top: 20px; padding-bottom: 22px; }
   .hero__bottom-left-card { min-height: 0; padding: 22px 30px; }
   .hero__card-description { font-size: 0.9rem; margin-bottom: 16px; }
-  .hero__seal { width: 140px; height: 140px; }
+  .hero__seal { width: 168px; height: 168px; }
 }
 
 /* ================= TABLET / PANTALLA CHICA DE ESCRITORIO ================= */
@@ -501,7 +681,7 @@
   .hero__grid { --pad-x: 36px; --col-r: 280px; }
 
 
-  .hero__seal { width: 148px; height: 148px; }
+  .hero__seal { width: 176px; height: 176px; }
 }
 
 /* ================= CELULAR: SOLO LO IMPORTANTE =================
