@@ -8,7 +8,7 @@
 
   position: relative;
   z-index: 2;
-  overflow: hidden;
+  overflow: clip;
 
   background: var(--svc-bg);
   color: var(--svc-text);
@@ -953,5 +953,134 @@
 
   .service-card__inner{
     padding-top: 60px;
+  }
+}
+
+/* =====================================================
+   ANIMACIÓN SCROLL — DOS GRUPOS DE TARJETAS SUPERPUESTOS
+   Solo controla la posición de las capas; no modifica
+   el diseño interno ni el contenido de las tarjetas.
+===================================================== */
+
+.services__scroll-track{
+  position: relative;
+  height: 220vh;
+  --cards-scroll-progress: 0;
+}
+
+.services__scroll-scene{
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  min-height: 620px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.services__cards{
+  position: relative;
+  width: 100%;
+  min-height: 1px;
+  max-width: 1300px;
+  margin: 0 auto;
+  display: block;
+}
+
+.service-card-group{
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 28px;
+  width: 100%;
+  will-change: transform, opacity;
+}
+
+.service-card-group--first{
+  position: relative;
+  z-index: 1;
+  transform:
+    translateY(calc(var(--cards-scroll-progress) * -10px))
+    scale(calc(1 - var(--cards-scroll-progress) * .025));
+  opacity: calc(1 - var(--cards-scroll-progress) * .18);
+  transform-origin: center top;
+  transition: filter .2s ease;
+}
+
+.service-card-group--second{
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  transform: translate3d(
+    0,
+    calc((1 - var(--cards-scroll-progress)) * 108%),
+    0
+  );
+  opacity: 1;
+  transition: none;
+  pointer-events: auto;
+}
+
+.service-card-group--second .service-card{
+  box-shadow: 0 24px 55px rgba(0, 0, 0, .22);
+}
+
+@media (max-width: 900px){
+  .services__scroll-track{
+    height: auto;
+  }
+
+  .services__scroll-scene{
+    position: relative;
+    top: auto;
+    height: auto;
+    min-height: 0;
+    display: block;
+  }
+
+  .services__cards{
+    display: block;
+  }
+
+  .service-card-group{
+    position: relative;
+    grid-template-columns: 1fr;
+    max-width: 480px;
+    margin: 0 auto;
+  }
+
+  .service-card-group--first{
+    transform: none;
+    opacity: 1;
+  }
+
+  .service-card-group--second{
+    inset: auto;
+    transform: none;
+    margin-top: 28px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce){
+  .service-card-group--first,
+  .service-card-group--second{
+    transform: none !important;
+    opacity: 1 !important;
+    transition: none !important;
+  }
+
+  .services__scroll-track{
+    height: auto;
+  }
+
+  .services__scroll-scene{
+    position: relative;
+    height: auto;
+    min-height: 0;
+  }
+
+  .service-card-group--second{
+    position: relative;
+    inset: auto;
+    margin-top: 28px;
   }
 }

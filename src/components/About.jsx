@@ -267,6 +267,7 @@ function About({ t }) {
   const [gridRevealed, setGridRevealed] = useState(false);
   const sectionRef = useRef(null);
   const gridRef = useRef(null);
+  const scrollTrackRef = useRef(null);
 
   // Un solo disparador para las 4 tarjetas: convergen juntas, no una por una
   useEffect(() => {
@@ -283,6 +284,39 @@ function About({ t }) {
     if (gridRef.current) observer.observe(gridRef.current);
 
     return () => observer.disconnect();
+  }, []);
+
+  // Progreso de scroll para superponer el segundo grupo sobre el primero.
+  useEffect(() => {
+    const track = scrollTrackRef.current;
+    if (!track) return;
+
+    let frameId = null;
+
+    const updateProgress = () => {
+      const rect = track.getBoundingClientRect();
+      const scrollDistance = track.offsetHeight - window.innerHeight;
+      const traveled = Math.min(Math.max(-rect.top, 0), scrollDistance);
+      const progress = scrollDistance > 0 ? traveled / scrollDistance : 1;
+
+      const easedProgress = progress * progress * (3 - 2 * progress);
+      track.style.setProperty("--cards-scroll-progress", easedProgress.toFixed(4));
+      frameId = null;
+    };
+
+    const requestUpdate = () => {
+      if (frameId === null) frameId = window.requestAnimationFrame(updateProgress);
+    };
+
+    updateProgress();
+    window.addEventListener("scroll", requestUpdate, { passive: true });
+    window.addEventListener("resize", requestUpdate);
+
+    return () => {
+      window.removeEventListener("scroll", requestUpdate);
+      window.removeEventListener("resize", requestUpdate);
+      if (frameId !== null) window.cancelAnimationFrame(frameId);
+    };
   }, []);
 
   // Spotlight de fondo: el foco de luz sigue al cursor por toda la sección
@@ -356,19 +390,40 @@ function About({ t }) {
         <p className="services__subtitle">{t.about.subtitle}</p>
       </div>
 
-      <div className="services__cards" ref={gridRef}>
-        {services.map((service, index) => (
-          <ServiceCard
-            key={index}
-            index={index}
-            side={service.side}
-            isRevealed={gridRevealed}
-            title={service.title}
-            description={service.desc}
-            renderVisual={service.renderVisual}
-            t={t}
-          />
-        ))}
+      <div className="services__scroll-track" ref={scrollTrackRef}>
+        <div className="services__scroll-scene">
+          <div className="services__cards" ref={gridRef}>
+            <div className="service-card-group service-card-group--first">
+              {services.slice(0, 2).map((service, index) => (
+                <ServiceCard
+                  key={index}
+                  index={index}
+                  side={service.side}
+                  isRevealed={gridRevealed}
+                  title={service.title}
+                  description={service.desc}
+                  renderVisual={service.renderVisual}
+                  t={t}
+                />
+              ))}
+            </div>
+
+            <div className="service-card-group service-card-group--second">
+              {services.slice(2, 4).map((service, index) => (
+                <ServiceCard
+                  key={index + 2}
+                  index={index + 2}
+                  side={service.side}
+                  isRevealed={gridRevealed}
+                  title={service.title}
+                  description={service.desc}
+                  renderVisual={service.renderVisual}
+                  t={t}
+                />
+              ))}
+            </div>
+          </div>
+        </div>
       </div>
 
       <div className="services__closing">
