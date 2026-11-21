@@ -1,10 +1,16 @@
 import "../styles/hero.css";
-import { Fragment, useEffect, useRef, useState } from "react";
+import { Fragment, useEffect, useLayoutEffect, useRef, useState } from "react";
 import { HiArrowUpRight } from "react-icons/hi2";
 import { FaWhatsapp } from "react-icons/fa";
 
 // Mismo número que usa el formulario de Contacto
 const WHATSAPP_URL = "https://wa.me/5493874477853";
+
+// Animación de inicio "Se imprime el póster". Se reproduce una sola vez por
+// sesión (si la persona vuelve a la portada o recarga, ya no se repite).
+const INTRO_KEY = "axelnavi-intro";
+const INTRO_MS = 3000; // cuándo se limpian las clases (la animación dura ~1,7 s)
+const SEAL_KICK_MS = 1200; // cuándo el sello arranca su giro rápido
 
 // Capturas livianas (WebP) para el teaser de la tarjeta alta. Las originales
 // de la sección Proyectos no se tocan: acá se usan versiones reducidas.
@@ -105,10 +111,13 @@ function Hero({ t }) {
   const sealRingRef = useRef(null);
   const sealHover = useRef(false);
   const cardRef = useRef(null);
+  const sealKick = useRef(null);
 
   // Rotación automática de roles
   useEffect(() => {
     const interval = setInterval(() => {
+      // Durante la animación de inicio la palabra no rota
+      if (document.documentElement.classList.contains("intro")) return;
       setRoleIndex((prev) => (prev + 1) % roles.length);
     }, 2600);
 
@@ -180,6 +189,68 @@ if (sectionRef.current) {
     if (cardRef.current) cardRef.current.style.transform = "";
   };
 
+  // Animación de inicio. La clase "intro" se pone en <html> ANTES del primer
+  // dibujado (por eso es un layout effect): deja las piezas ocultas y, cuando
+  // la fuente ya cargó, "intro-run" dispara el CSS que las estampa una a una.
+  // No se reproduce con "reducir movimiento", si ya se vio en esta sesión o si
+  // la página se abre ya scrolleada. Cualquier scroll, clic o tecla la corta.
+  useLayoutEffect(() => {
+    const root = document.documentElement;
+
+    let played = false;
+    try {
+      played = sessionStorage.getItem(INTRO_KEY) === "1";
+    } catch (e) {
+      /* sin sessionStorage: se reproduce igual */
+    }
+
+    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (played || reduce || window.scrollY > 40) return;
+
+    root.classList.add("intro");
+
+    const timers = [];
+    const skipEvents = ["wheel", "touchstart", "keydown", "pointerdown"];
+    let cancelled = false;
+    let finished = false;
+
+    const finish = () => {
+      if (finished) return;
+      finished = true;
+      timers.forEach(clearTimeout);
+      skipEvents.forEach((e) => window.removeEventListener(e, finish));
+      root.classList.remove("intro", "intro-run");
+    };
+
+    skipEvents.forEach((e) => window.addEventListener(e, finish, { passive: true }));
+
+    // Espera a la fuente (máximo 1 s) para que el título no cambie de letra
+    // en plena animación
+    const fontsReady = document.fonts && document.fonts.ready ? document.fonts.ready : Promise.resolve();
+    Promise.race([fontsReady, new Promise((resolve) => setTimeout(resolve, 1000))]).then(() => {
+      if (cancelled || finished) return;
+
+      root.classList.add("intro-run");
+
+      try {
+        sessionStorage.setItem(INTRO_KEY, "1");
+      } catch (e) {
+        /* ignorar */
+      }
+
+      timers.push(setTimeout(() => sealKick.current && sealKick.current(), SEAL_KICK_MS));
+      timers.push(setTimeout(finish, INTRO_MS));
+    });
+
+    // Red de seguridad: si algo fallara, a los 6 s se muestra todo igual
+    timers.push(setTimeout(finish, 6000));
+
+    return () => {
+      cancelled = true;
+      finish();
+    };
+  }, []);
+
   // Giro del sello: lento en reposo y más rápido al pasar el mouse (o al enfocar
   // con teclado). La velocidad cambia de forma gradual, sin saltos. Con
   // "reducir movimiento" activado en el sistema, el sello queda quieto.
@@ -193,8 +264,13 @@ if (sectionRef.current) {
 
     let angle = 0;
     let speed = BASE;
+    let boost = 0; // giro extra que se va apagando (lo usa la animación de inicio)
     let last = performance.now();
     let frame;
+
+    sealKick.current = () => {
+      boost = 1300;
+    };
 
     const tick = (now) => {
       const dt = Math.min((now - last) / 1000, 0.05);
@@ -202,7 +278,8 @@ if (sectionRef.current) {
 
       const target = sealHover.current ? FAST : BASE;
       speed += (target - speed) * Math.min(dt * 4, 1);
-      angle = (angle + speed * dt) % 360;
+      boost *= Math.exp(-dt * 2.2);
+      angle = (angle + (speed + boost) * dt) % 360;
 
       ring.style.transform = `rotate(${angle}deg)`;
       frame = requestAnimationFrame(tick);
@@ -210,11 +287,20 @@ if (sectionRef.current) {
 
     frame = requestAnimationFrame(tick);
 
-    return () => cancelAnimationFrame(frame);
+    return () => {
+      cancelAnimationFrame(frame);
+      sealKick.current = null;
+    };
   }, []);
 
   return (
     <section id="hero" className="hero" ref={sectionRef}>
+      {/* Marcas de imprenta: solo existen durante la animación de inicio */}
+      <i className="hero__crop hero__crop--tl" aria-hidden="true" />
+      <i className="hero__crop hero__crop--tr" aria-hidden="true" />
+      <i className="hero__crop hero__crop--bl" aria-hidden="true" />
+      <i className="hero__crop hero__crop--br" aria-hidden="true" />
+
       <div className="hero__inner" ref={innerRef}>
         <div className="hero__frame">
 

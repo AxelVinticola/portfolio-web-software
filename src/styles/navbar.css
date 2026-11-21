@@ -530,3 +530,41 @@
     opacity: 1;
   }
 }
+
+/* =====================================================================
+   ANIMACIÓN DE INICIO — "Se imprime el póster" (parte del Nav)
+   Las tres islas caen con una sombra dura grande y se "hunden" hasta apoyarse,
+   el mismo gesto de los botones. Las clases "intro" e "intro-run" las pone
+   Hero.jsx en <html> (ver hero.css). --ik es el factor de velocidad global
+   de la animación: más bajo = más rápida.
+===================================================================== */
+
+html.intro {
+  --ik: 0.75;
+}
+
+html.intro:not(.intro-run) .navbar__island {
+  opacity: 0;
+}
+
+html.intro-run .navbar__island {
+  animation: introStamp calc(0.55s * var(--ik, 0.75)) cubic-bezier(0.2, 0.9, 0.3, 1.1)
+    calc(var(--intro-delay, 0.2s) * var(--ik, 0.75)) both;
+}
+
+.navbar__island--brand { --intro-delay: 0.2s; }
+.navbar__island--links { --intro-delay: 0.32s; }
+.navbar__island--actions { --intro-delay: 0.44s; }
+
+/* Solo se define de dónde llega: el destino es el estilo propio de cada isla */
+@keyframes introStamp {
+  from {
+    opacity: 0;
+    translate: 0 -40px;
+    scale: 1.12;
+    box-shadow: 8px 10px 0 #10233F;
+  }
+  55% {
+    opacity: 1;
+  }
+}

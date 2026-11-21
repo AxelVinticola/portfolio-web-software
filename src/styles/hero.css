@@ -868,3 +868,169 @@
     transform: none;
   }
 }
+
+/* =====================================================================
+   ANIMACIÓN DE INICIO — "Se imprime el póster"
+   Hero.jsx pone la clase "intro" en <html> antes del primer dibujado y
+   "intro-run" cuando la fuente cargó. Sin esas clases (otra visita, "reducir
+   movimiento", o ya terminada) nada de esto se aplica y el Hero queda normal.
+   Los valores finales de cada pieza son los de su propio CSS: acá solo se
+   define de dónde "llega". Se usan las propiedades "translate" y "scale"
+   (no "transform") para no pisar la inclinación ni el giro del sello.
+   --ik es el factor de velocidad (en navbar.css): más bajo = más rápida.
+===================================================================== */
+
+/* Marcas de imprenta de las esquinas */
+.hero__crop {
+  display: none;
+}
+
+html.intro .hero__crop {
+  display: block;
+  position: absolute;
+  z-index: 3;
+
+  width: 14px;
+  height: 14px;
+  pointer-events: none;
+}
+
+.hero__crop::before,
+.hero__crop::after {
+  content: "";
+  position: absolute;
+  background: rgba(18, 18, 18, 0.55);
+}
+
+.hero__crop::before {
+  left: 6px;
+  top: 0;
+  width: 1.5px;
+  height: 14px;
+}
+
+.hero__crop::after {
+  left: 0;
+  top: 6px;
+  width: 14px;
+  height: 1.5px;
+}
+
+.hero__crop--tl { left: 8px; top: 8px; }
+.hero__crop--tr { right: 8px; top: 8px; }
+.hero__crop--bl { left: 8px; bottom: 8px; }
+.hero__crop--br { right: 8px; bottom: 8px; }
+
+/* Antes de que arranque: todo oculto (la hoja crema en blanco, con las marcas) */
+html.intro:not(.intro-run) .hero__title,
+html.intro:not(.intro-run) .hero__chip,
+html.intro:not(.intro-run) .hero__bottom-left-card,
+html.intro:not(.intro-run) .hero__top-right-card,
+html.intro:not(.intro-run) .hero__bottom-right-card,
+html.intro:not(.intro-run) .hero__seal {
+  opacity: 0;
+}
+
+/* Título: se escribe de abajo hacia arriba */
+html.intro-run .hero__title {
+  animation: introWrite calc(0.6s * var(--ik, 0.75)) cubic-bezier(0.16, 1, 0.3, 1)
+    calc(0.6s * var(--ik, 0.75)) both;
+}
+
+@keyframes introWrite {
+  from {
+    clip-path: inset(100% -0.3em -0.3em -0.3em);
+    translate: 0 0.35em;
+  }
+  to {
+    clip-path: inset(-0.3em);
+    translate: 0 0;
+  }
+}
+
+/* La palabra del recuadro se descubre de izquierda a derecha */
+html.intro-run .hero__role-wrapper {
+  animation: introWipe calc(0.55s * var(--ik, 0.75)) cubic-bezier(0.65, 0, 0.35, 1)
+    calc(0.92s * var(--ik, 0.75)) both;
+}
+
+@keyframes introWipe {
+  from { clip-path: polygon(0 0, 0 0, 0 100%, 0 100%); }
+  to { clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%); }
+}
+
+/* Tarjeta negra: sube. Tarjeta alta: se dibuja hacia abajo. Las dos conservan
+   su esquina cortada porque el destino es su propio clip-path */
+html.intro-run .hero__bottom-left-card {
+  animation: introRise calc(0.65s * var(--ik, 0.75)) cubic-bezier(0.65, 0, 0.35, 1)
+    calc(1s * var(--ik, 0.75)) both;
+}
+
+@keyframes introRise {
+  from { clip-path: polygon(0 100%, 78% 100%, 100% 100%, 100% 100%, 0 100%); }
+}
+
+html.intro-run .hero__top-right-card {
+  animation: introDraw calc(0.7s * var(--ik, 0.75)) cubic-bezier(0.65, 0, 0.35, 1)
+    calc(1.15s * var(--ik, 0.75)) both;
+}
+
+@keyframes introDraw {
+  from { clip-path: polygon(70px 0, 100% 0, 100% 0, 0 0, 0 0); }
+}
+
+/* Notificación: cae con un pequeño rebote */
+html.intro-run .hero__bottom-right-card {
+  animation: introDrop calc(0.8s * var(--ik, 0.75)) cubic-bezier(0.34, 1.56, 0.64, 1)
+    calc(1.5s * var(--ik, 0.75)) both;
+}
+
+@keyframes introDrop {
+  from { opacity: 0; translate: 0 -80px; }
+  30% { opacity: 1; }
+}
+
+/* Sello: aparece (el giro rápido que se calma lo maneja Hero.jsx) */
+html.intro-run .hero__seal {
+  animation: introPop calc(0.6s * var(--ik, 0.75)) cubic-bezier(0.34, 1.56, 0.64, 1)
+    calc(1.6s * var(--ik, 0.75)) both;
+}
+
+@keyframes introPop {
+  from { opacity: 0; scale: 0.3; }
+}
+
+/* Chip "Disponible" (solo celular) */
+html.intro-run .hero__chip {
+  animation: introFade calc(0.5s * var(--ik, 0.75)) ease calc(0.45s * var(--ik, 0.75)) both;
+}
+
+@keyframes introFade {
+  from { opacity: 0; translate: 0 10px; }
+}
+
+/* Las marcas de imprenta se desvanecen al final */
+html.intro-run .hero__crop {
+  animation: introMarks calc(2.3s * var(--ik, 0.75)) both;
+}
+
+@keyframes introMarks {
+  0%, 75% { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+@media (max-width: 900px) {
+  /* En celular la tarjeta negra no tiene esquina cortada: sube con un barrido simple */
+  html.intro-run .hero__bottom-left-card {
+    animation-name: introRiseSimple;
+  }
+
+  .hero__crop {
+    display: none !important;
+  }
+}
+
+@keyframes introRiseSimple {
+  from { clip-path: inset(100% 0 0 0); }
+  to { clip-path: inset(0 0 0 0); }
+}
