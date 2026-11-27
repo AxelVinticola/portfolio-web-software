@@ -485,12 +485,7 @@ function Projects({ t }) {
 
       <div className="landing-pages">
 
-        <div className="section-title">
-          <h2>{t.projects.more?.title || "Más proyectos"}</h2>
-          <p>{t.projects.more?.subtitle || "Landing pages y sitios que desarrollé para distintos clientes."}</p>
-        </div>
-
-        <Gallery />
+        <Gallery t={t} />
 
       </div>
 
